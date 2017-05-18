@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+        {{message}}
+    </div>
+    <div id="app-2">
+        <span v-bind:title="message">
+            鼠标悬停几秒查看此处动态绑定的提示信息
+        </span>
+    </div>
+
+    <div id="app-3">
+        <p v-if="seen">现在你看到我了</p>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{todo.text}}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app-5">
+        <p>{{message}}</p>
+        <button v-on:click="reverseMessage">逆转消息</button>
+    </div>
+
+    <div id="app-6">
+        <p>{{message}}</p>
+        <input v-model="message">
+    </div>
+
+
+    <div id="app-7">
+        <ol>
+            <!-- wa coa :  doto前面加个空格都有错??? -->
+            <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+        </ol>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // // 定义命名为 todo-item 的新组件
+        // Vue.component('todo-item', {
+        //     template: '<li>{{todo.text}}</li>'
+        // })
+
+        Vue.component('todo-item', {
+            // todo-item 组件接受一个"props", 类似与一个自定义属性
+            // 这个属性名为 todo
+            props: ['todo'],
+            template: "<li>{{todo.text}}</li>"
+        })
+
+
+        var app7 = new Vue({
+            el: "#app-7",
+            data: {
+                groceryList: [{
+                    text: "蔬菜"
+                }, {
+                    text: "奶酪"
+                }, {
+                    text: "随便其他什么吧, 能吃就好"
+                }]
+            }
+        })
+
+
+
+
+        var app6 = new Vue({
+            el: "#app-6",
+            data: {
+                message: "Hello Vue!"
+            }
+        })
+
+        var app5 = new Vue({
+            el: "#app-5",
+            data: {
+                message: "Hello Vue.js"
+            },
+            methods: {
+                reverseMessage: function() {
+                    this.message = this.message.split(' ').reverse().join(' ')
+                }
+            }
+        })
+
+        var app4 = new Vue({
+            el: "#app-4",
+            data: {
+                todos: [{
+                    text: "学习 JavaScript"
+                }, {
+                    text: "学习 Vue"
+                }, {
+                    text: "搞个完整的项目"
+                }, ]
+            }
+        })
+
+
+        var app3 = new Vue({
+            el: "#app-3",
+            data: {
+                seen: false
+            }
+        })
+
+
+        var app2 = new Vue({
+            el: "#app-2",
+            data: {
+                message: '页面加载于' + new Date()
+            }
+        })
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+    </script>
+</body>
+
+</html>

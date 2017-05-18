@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="example-1">
+        <button v-on:click="counter += 1">增加1</button>
+        <p>这个按钮被点击了{{ counter }}次</p>
+    </div>
+    <div id="example-2">
+        <!-- greet 是在下面定义的方法 -->
+        <button v-on:click="greet">Greet</button>
+    </div>
+    <div id="example-3">
+        <button v-on:click="say('Hi')">Say hi</button>
+        <button v-on:click="say('what')">say what</button>
+        <button v-on:click="warn('Form cannot be submitter yet.', $event)">Submit</button>
+    </div>
+    <!-- 阻止事件冒泡 -->
+    <a v-on:click.stop="doThis"></a>
+    <!-- 提交事件不再重载页面 -->
+    <form v-on:submit.prevent=></form>
+    <script src="./vue.js"></script>
+    <script>
+        new Vue({
+            el: "#example-3",
+            methods: {
+                say: function(message) {
+                    alert(message)
+                },
+                warn: function(message, event) {
+                    // 现在我们可以访问原生事件对象
+                    if (event) event.preventDefault();
+                    alert(message)
+                }
+            }
+        })
+
+
+        var example2 = new Vue({
+            el: '#example-2',
+            data: {
+                name: 'Vue.js'
+            },
+            methods: {
+                greet: function(event) {
+                    // this 在方法里指向Vue实例
+                    alert('Hello' + this.name + '!');
+                    // event 是原生的Dom元素
+                    alert(event.target.tagName);
+                }
+            }
+        })
+
+        var example1 = new Vue({
+            el: '#example-1',
+            data: {
+                counter: 0
+            }
+        })
+    </script>
+</body>
+
+</html>

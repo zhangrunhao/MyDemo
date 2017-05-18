@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="example">
+        <p>{{message | capitalize}}</p>
+        {{a}}
+
+        <span v-once>{{msg}}</span> {{msg}}
+
+        <p v-bind:id=myId v-bind:class=myClass>
+            这是一个p标签
+        </p>
+
+        {{ number + 1 }} {{ OK ? 'YES' : 'No' }} {{ message.split('').reverse().join('') }}
+
+        <div v-bind:id="'list-' + id"></div>
+
+        <p v-if="seen">Now you see me</p>
+
+        <a v-bind:href="url">百度</a>
+
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        var data = {
+            a: 1,
+            msg: 'msg',
+            myId: 'Id',
+            myClass: 'red',
+            number: 1,
+            OK: false,
+            message: 'my name is zhangrh',
+            id: 2,
+            seen: true,
+            url: "http://www.baidu.com"
+        }
+
+        var vm = new Vue({
+            el: "#example",
+            data: data,
+            created: function() {
+                // this 指向 vm 实例
+                console.log("a is: " + this.a)
+            },
+            filters: {
+                capitalize: function(value) {
+                    if (!value) return ''
+                    value = value.toString()
+                    return value.charAt(0).toUpperCase() + value.slice(1)
+                }
+            }
+        })
+
+        vm.$data === data // -> ture
+        vm.$el = document.getElementById('example') // -> true
+
+        // $watch是一个实例方法
+        vm.$watch('a', function(newVal, oldVal) {
+            //这个方法在 vm.a 的值改变的时候执行
+            console.log("a的值改变了")
+            console.log(newVal)
+            console.log(oldVal)
+        })
+    </script>
+
+</body>
+
+</html>

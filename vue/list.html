@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <ul id="example-1">
+        <li v-for="item in items">
+            {{item.message}}
+        </li>
+    </ul>
+
+    <ul id="example-2">
+        <li v-for="(item, index) in items">
+            {{parentMessage}} - {{index}} - {{item.message}}
+        </li>
+    </ul>
+
+    <ul id="repeat-object" class="demo">
+        <li v-for="value in object">
+            {{ value }}
+        </li>
+        <li v-for="(value, key) in object">
+            {{key}} : {{value}}
+        </li>
+
+        <li v-for="(value, key, index) in object">
+            {{key}} : {{value}} : {{index}}
+        </li>
+        <li>
+            <span v-for="n in 10">{{ n }}, </span>
+        </li>
+    </ul>
+
+
+    <div id="todo-list-example">
+        <!-- 在实例中添加一个属性,'newTodoText 松开回车执行事件, .enter是一个修饰符表示离开回车键' -->
+        <input v-model="newTodoText" v-on:keyup.enter="addNewTodo" placeholder="Add a todo">
+        <ul>
+            <!-- 因为ul中只能包含li, 不是是todo-item标签, 所以要使用is属性 -->
+            <!-- v-for 表示循环这个组件 -->
+            <!-- v-bind 表示向组件中传入一个值, 对应了props中的title, 那么props中的title, 就是todos中的todo.-->
+            <!-- v-on 表示传入一个方法, remove. -->
+            <!-- 原来向组件中传递值和方法的时候, 是通过v-bind 和 v-on传递的. -->
+            <!-- 这里的index在循环的时候, 已经被注入到这个组件中了 -->
+            <li is="todo-item" v-for="(todo, index) in todos" v-bind:title="todo" v-on:remove="todos.splice(index, 1)"></li>
+        </ul>
+    </div>
+
+    <div id="app">
+        <ul v-if="isComplete">
+            <li v-for="todo in todos">
+                {{ todo }}
+            </li>
+        </ul>
+    </div>
+
+    <ul id="app1">
+        <!--<li v-for="n in evenNumbers">{{ n }}</li>-->
+        <li v-for="n in even(numbers)">{{ n }}</li>
+    </ul>
+
+
+    <script src="./vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app1",
+            data: {
+                numbers: [1, 2, 3, 4, 5]
+            },
+            computed: {
+                // 计算属性
+                evenNumbers: function() {
+                    // 返回一个数组,
+                    // 这个数组是numbers 执行过filter函数之后的数组
+                    // 在filter函数中 只有每一项执行过这个函数后返回true的值,才会被纳入新的数组
+                    return this.numbers.filter(function(number) {
+                        return number % 2 === 0
+                    })
+                }
+            },
+            methods: {
+                even: function(numbers) {
+                    return numbers.filter(function(number) {
+                        return number % 2 === 0
+                    })
+                }
+            }
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                isComplete: true,
+                todos: [{
+                    One: 'This is todoOne',
+                    isComplete: true
+                }, {
+                    Two: 'This is todoTwo',
+                    isComplete: false
+                }, {
+                    Three: 'This is todoThree',
+                    isComplete: false
+                }]
+            }
+        });
+        // 这是注册组件的方式
+        //  'todo-item 是组件名称'
+        // 后面的是一个选项
+        Vue.component('todo-item', {
+            // 如果直接写 '' 的话 就会把两块分开, 添加 转义符 \ 是为了表示这是一个真正的 ' 需要渲染到页面上的.
+            // $用来传递上面 v-on 的方法, 组件里面用的remove, 这个方法就会执行 template中的 v-on 方法.
+            template: '<li>{{ title }}<button v-on:click="$emit(\'remove\')">X</button></li>',
+            props: ['title']
+        })
+
+        new Vue({
+            el: '#todo-list-example',
+            data: {
+                newTodoText: '',
+                todos: [
+                    'Do the dishes',
+                    'Take out the trash',
+                    'Mow the lawn'
+                ]
+            },
+            methods: {
+                addNewTodo: function() {
+                    this.todos.push(this.newTodoText)
+                    this.newTodoText = ''
+                }
+            }
+        })
+
+
+        var example = new Vue({
+            el: "#example-1",
+            data: {
+                items: [{
+                    message: 'Foo'
+                }, {
+                    message: 'Bar'
+                }]
+            }
+        })
+
+        var example2 = new Vue({
+            el: "#example-2",
+            data: {
+                parentMessage: "Parent",
+                items: [{
+                    message: 'Foo'
+                }, {
+                    message: 'Bar'
+                }]
+            }
+        })
+
+        new Vue({
+            el: "#repeat-object",
+            data: {
+                object: {
+                    FirstName: 'John',
+                    LastName: 'Doe',
+                    Age: 30
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

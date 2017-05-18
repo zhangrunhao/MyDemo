@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .active {
+        color: red;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!--<p class="static" v-bind:class="classObject"></p>-->
+        <p v-bind:class="classObject">这是一个p标签</p>
+        <!--<div v-bind:class="[activeClass, errorClass]"></div>-->
+        <!--<div v-bind:class=[ "isActive ? activeClass : ' ', errorClass "]></div>-->
+        <!--<div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>-->
+        <div v-bind:class="[{ active: isActive }, errorClass]"></div>
+        <!--<my-component class="baz boo"></my-component>-->
+        <my-component v-bind:class="{active: isActive}"></my-component>
+        <div v-bind:style="{color: activeColor, fontSize: fontSize + 'px'}">你好</div>
+        <div v-bind:style="styleObject">Hello</div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('my-component', {
+            template: '<p class="for bar">Hi</p>'
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+                isActive: true,
+                error: null,
+                activeClass: "active",
+                errorClass: "text-danger",
+                activeColor: 'blue',
+                fontSize: 30,
+                styleObject: {
+                    color: 'yellow',
+                    fontSize: '60px'
+                }
+            },
+            computed: {
+                classObject: function() {
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error && this.error.type === 'fatal',
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
