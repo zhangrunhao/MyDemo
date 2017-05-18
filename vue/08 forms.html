@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="" name="" value="" v-model="message">
+        <p>message is : {{message}}</p>
+
+        <span>Multiline message is : </span>
+        <p style="white-space: pre">{{message}}</p>
+        <br>
+        <textarea v-model="message"></textarea>
+
+        <input type="checkbox" id="checkbox" v-model="checked" name="" value="">
+        <label for="checkbox">{{ checked }}</label>
+        <br>
+        <input type="checkbox" id="mike" value="Mike" v-model="CheckedNames">
+        <label for="Mike">Mike</label>
+        <input type="checkbox" id="john" value="John" v-model="CheckedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="jack" value="Jack" v-model="CheckedNames">
+        <label for="Jack">Jack</label>
+        <br>
+        <span>Checked names: {{ CheckedNames }}</span>
+    </div>
+
+
+    <div id="example-4" class="demo">
+        <input type="radio" value="One" v-model="picked">
+        <label>One</label>
+        <input type="radio" value="Two" v-model="picked">
+        <label>Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+    </div>
+
+    <div id="example-5">
+        <select v-model="selected">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <br>
+    <br>
+
+    <div id="example-6" class="demo">
+        <select v-model="selected" multiple  style="width: 50px">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div id="vm">
+        <select v-model="selected">
+            <option v-for="option in options" v-bind:value="option.vlaue">
+                {{ option.text }}
+            </option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    
+
+    <script src="./vue.js"></script>
+    <script>
+        new Vue({
+            el: "#vm",
+            data: {
+                selected: 'A',
+                options: [
+                    { text: 'One', vlaue: 'A' },
+                    { text: 'Two', vlaue: 'B' },
+                    { text: 'Three', vlaue: 'C' }
+                ]
+            }
+        })
+
+
+
+        new Vue({
+            el: "#example-6",
+            data: {
+                selected: []
+            }
+        })
+
+        new Vue({
+            el: "#example-5",
+            data: {
+                selected: null
+            }
+        })
+
+
+        new Vue({
+            el: '#example-4',
+            data: {
+                picked: ''
+            }
+        })
+
+
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'sss',
+                checked: false,     
+                CheckedNames: []
+            }
+        })
+    </script>
+</body>
+</html>
