@@ -74,7 +74,16 @@
         <span>Selected: {{ selected }}</span>
     </div>
 
-    
+    <!-- 当被选中时, picked 为字符串'a' -->
+    <input type="radio" v-model="picked" value="a">
+
+    <!-- toggle 为true 或 false -->
+    <input type="checked" v-model="toggle">
+
+    <!-- 当选中时, selected 为字符串'abc' -->
+    <select v-model="selected">
+        <option value="abc">ABC</option>
+    </select>
 
     <script src="./vue.js"></script>
     <script>

@@ -139,3 +139,70 @@ new Vue({
 ## 绑定value
 * 对于单选按钮, 勾选框及选择列表选项, `v-model`绑定的value通常是静态字符串,(勾选框是逻辑值)
 ```html
+    <!-- 当被选中时, picked 为字符串'a' -->
+    <input type="radio" v-model="picked" value="a">
+
+    <!-- toggle 为true 或 false -->
+    <input type="checked" v-model="toggle">
+
+    <!-- 当选中时, selected 为字符串'abc' -->
+    <select v-model="selected">
+        <option value="abc">ABC</option>
+    </select>
+```
+
+### 复选框
+```html
+<input type="checked" v-model="toggle" v-bind:true-value="a" v-bind:false-value="b">
+```
+```js
+// 选中时
+vm.toggle === vm.a
+// 当没有被选中时
+vm.toggle === vm.b
+```
+
+### 单选按钮
+```html
+<input type="radio" v-model="pick" v-bind:value="a">
+```
+```js
+// 选中时
+vm.pick === vm.a
+```
+
+### 选择列表设置
+```html
+<selected v-model="selected">
+    <!-- 内联对象字面量 -->
+    <option v-bind:value="{ number: 123 }">123</option>
+</selected>
+```
+```js
+typeof vm.selected // -> 'object'
+vm.selected.number // -> 123
+```
+
+## 修饰符
+### `.number`
+* 在默认情况下, `v-model`在`input`事件中同步输入框的值与数据(除了上述IME部分), 但你可以添加一个修饰符`lazy`, 从而转变为在`change`事件中同步:
+```html
+<!-- 在 change 而不是 input 事件中更新 -->
+<input v-model.lazy='msg'>
+```
+
+### `.number`
+* 如果想自动将用户的输入值转为Number类型(如果原值的转换结果为 NaN 则返回原值), 可以添加一个修饰符`number`给`v-model`来处理输入值.
+```html
+<input v-model.number="age" type='number'>
+* 这通常很有用, 因为在`type="number"`时HTML中输入的值也总是会返回字符串类型.
+```
+
+### `.trim`
+* 如果要自动过滤用户输入的首尾空格, 可以添加`trim`修饰符到`v-model`上过滤输入:
+```html
+<input v-model.trim="msg">
+```
+
+## `v-model`与组件
+* HTML内建的input类型有时不能满足你的需求, 还好, Vue的组件系统允许你创造一个具有自定义行为可复用的input类型, 这些input类型甚至可以和`v-model`一起使用!
