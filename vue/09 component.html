@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <!--<div id="example">
+        <my-component></my-component>
+    </div>-->
+
+
+    <!--<div id="example-2">
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+    </div>-->
+
+
+    <div id="example-2">
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <!--<child message="hello!"></child>-->
+        <child my-message="hello!"></child>
+
+        <br>
+
+        <div>
+            <input v-model="parentMsg">
+            <br>
+            <child :my-message="parentMsg"></child>
+        </div>
+
+    </div>
+
+    <script src="./vue.js"></script>
+
+    <script>
+
+        Vue.component('child', {
+            // 声明 props
+            props: ['myMessage'],
+            // 就像 data 一样, props 可以用在模板内
+            // 同样也可以在 vm 实例中像 `this.message` 这样使用
+            template: `<span>{{ myMessage }}</span>`
+        })
+
+        var data = { counter: 0 }
+        Vue.component('simple-counter', {
+            template: '<button v-on:click="counter += 1 ">{{ counter }}</button>',
+            // 在技术上 data 的确是一个函数了, 因此 Vue 并不会警告, 
+            // 但是我们返回给每个小组的实例却都引用了同一个data对象
+            data: function(){
+                return {
+                    counter: 0
+                }
+            }
+        })
+        new Vue({
+            el: '#example-2',
+            data: {
+                parentMsg: ''
+            }
+        })
+
+        // Vue.component('my-component', {
+        //     template: '<span>{{ message }}</span>',
+        //     data: {
+        //         message: 'hello'
+        //     }
+        // })
+
+
+        // 注册
+        // Vue.component('my-component',{
+        //     template:'<div>A custom component !</div>'
+        // })
+
+        // 创建根实例
+        // new Vue({
+        //     el: '#example'
+        // })
+    </script>
+</body>
+</html>
