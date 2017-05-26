@@ -260,7 +260,92 @@ Vue.component('example', {
     * 使用`$emit(eventName)`触发事件.
 > Vue的事件系统分离自浏览器的EventTarget API . 尽管它们的运行类似, 但是`$on`和`$emit`**不是**`addEventListener`和`dispatchEvent`的别名.
 * 另外, 父组件可以在使用子组件的地方直接用`v-on`来监听子组件触发的事件.
-> 不能用`$on`监听子组件抛出的事件, 而必须在模板里直接使用``
+> 不能用`$on`监听子组件抛出的事件, 而必须在模板里直接使用`v-on`绑定, 例如:
+```html
+    <div id="counter-event-example">
+        <p>{{ total }}</p>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+    </div>
+```
+```js
+Vue.component('button-counter', {
+    // 组件中的模板
+    template: '<button v-on:click="increment">{{ counter }}</button>',
+    // 组件中的数据
+    data: function () { 
+        return {
+            counter: 0
+        }
+    },
+    // 组件中的方法
+    methods: {
+        increment:function (){ 
+            // 这个组件中的 counter 自增1
+            this.counter += 1
+            // 执行父元素中的 v-on:increment 所对应的方法.
+            this.$emit('increment')
+        }
+    }
+})
+
+new Vue({
+    el: '#counter-event-example',
+    data: {
+        total: 0
+    },
+    methods: {
+        incrementTotal: function () {
+            this.total += 1;
+        }
+    }
+})
+```
+
+* 在本例中, 子组件已经和它外部完全解耦了. 它所做的只是报告自己的内容事件, 置于父组件是否关心则与之无关. 这一点很重要.
+
+* **给组件绑定原生事件**
+
+*　有时候，会在某个组件的根元素上监听一个原生事件. 可以使用`.native`修饰`v-on`. 例如: 
+```html
+<my-component v-on:'click'.native="doSomeThing"></my-component>
+```
+
+### `.sync`修饰符
+* 在一些情况下, 我们可能会需要对一个prop进行, 双向绑定. 事实上, 这正是Vue.1.x中的 `.sync`修饰符做提供的功能. 当一个子组件改变了一个prop时, 这个变化也会同步到父组件中所绑定的值. 这很方便, 但是会导致问题, 破坏了单项数据流的假定. 完全不知道何时改变了父组件的状态. 这在debug复杂结构时, 有很高的成本.
+* 但是在2.0版本中发现, 在开发可复用的组件库时, 我们需要做的只是让子组件改变父组件状态的代码更容易被区分.
+* 这次作为编译时的一个语法糖, 会被扩展为一个自动更新父组件属性的`v-on`监听器
+```html
+<comp :foo.sync="bar"></comp>
+```
+* 会被扩展为: 
+```html
+<comp :foo="bar" @update:foo="val => bar = val"></comp>
+```
+* 当子组件需要更新`foo`的值时, 它需要显式地触发一个更新事件: 
+```js
+this.$emit('update:foo', newValue)
+```
+
+### 使用自定义事件的表单输入组件
+* 自定义事件可以用来创建自定义的表单输入组件, 使用`v-model`来进行双向数据绑定.
+```html
+<input v-model="something">
+```
+* 这不过是以下实例的语法糖:
+```html
+<input v-bind:value="something" v-on:input=""something = $event.target.value">
+```
+* 所以在组件中使用时, 它相当于
+```html
+<custon-input v-bind:value="something" v-on:input="somethig = arguement[0]"></custon-input>
+```
+* 所以要让组件的`v-model`生效, 它必须:
+    * 接受一个 `value` 属性
+    * 在有新的value时触发`input`事件
+
+
+
 
 
 
