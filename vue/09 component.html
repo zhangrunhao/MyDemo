@@ -41,43 +41,86 @@
         <button-counter v-on:increment="incrementTotal"></button-counter>
     </div>-->
 
-    <div id="app">
+    <!--<div id="app">
         <currency-input v-model="price"></currency-input>
-    </div>
+    </div>-->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/98739fb8ac6779cb2da11aaa9ab6032e52f3be00/currency-validator.js"></script>
 
+    <div id="app">
+        <currency-input label="Price" v-model="price"></currency-input>
+        <currency-input label="Shipping" v-model="shipping"></currency-input>
+        <currency-input label="Handling" v-model="handling"></currency-input>
+        <currency-input label="Discount" v-model="discount"></currency-input>
+        <p>Total: ${{ total }}</p>
+    </div>
 
     
 
     <script src="./vue.js"></script>
 
     <script>
-
+        // 注册全局组件
         Vue.component('currency-input', {
+            // 模板
             template: '\
-                <span>\
-                    $\
-                    <input\
+                <div>\
+                <label v-if="label">{{ label }}</label>\
+                $\
+                <input\
                     ref="input"\
                     v-bind:value="value"\
-                    v-on:input="updateVlaue($event.target.value)"\
-                    >\
-                </span>\
+                    v-on:input="updateValue($event.target.value)"\
+                    v-on:focus="selectAll"\
+                    v-on:blur="formatValue"\
+                >\
+                </div>\
             ',
-            props: ['value'],
+            // 传入的参数
+            props: {
+                // 组件上的value
+                value: {
+                    type: Number,
+                    default: 0
+                },
+                label: {
+                    type: String,
+                    default: ''
+                }
+            },
+            // html: 模板函数,编译好的时候, 执行钩子函数
+            mounted: function () {
+                // 格式化数据
+                this.formatValue()
+            },
+            // 组件方法
             methods: {
-                // 不是直接更新值, 而是使用此方法来输入值进行格式化和位数限制
-                updateVlaue: function(value){
-                    var formattedValue = value
-                        // 删除两侧的空格符
-                        .trim()
-                        // 保留两位小数
-                        .slice(0, value.indexOf('.') + 3)
-                    // 如果值不统一, 手动覆盖以保持一致
-                    if(formattedValue !== value){
-                        this.$refs.input.value = formattedValue
+                // 更新数据的方法
+                updateValue: function (value) {
+                    // 获取结果.
+                    // 也就是经过验证器的结果
+                    var result = currencyValidator.parse(value, this.value)
+                    // 如果有警告的话
+                    if (result.warning) {
+                        // 就通过这个验证函数 做个什么事情..
+                        // 这个组件下面中 所有拥有 ref 注册的子组件.
+                        this.$refs.input.value = result.value
                     }
-                    // 通过input事件发送数值
-                    this.$emit('input', Number(formattedValue))
+                    // 如果没有的话, 执行父组件的input方法, 并把结果的value传进去.
+                    this.$emit('input', result.value)
+                },
+                // 格式化函数
+                formatValue: function () {
+                    // 这个是这个组件的父组件中的方法.或者对象
+                    this.$refs.input.value = currencyValidator.format(this.value)
+                }, 
+                // 选中全部函数
+                selectAll: function (event) {
+                    // Workaround for Safari bug
+                    // http://stackoverflow.com/questions/1269722/selecting-text-on-focus-using-jquery-not-working-in-safari-and-chrome
+                    setTimeout(function () {
+                        event.target.select()
+                    }, 0)
                 }
             }
         })
@@ -85,9 +128,61 @@
         new Vue({
             el: '#app',
             data: {
-                price: 0
+                price: 0,
+                shipping: 0,
+                handling: 0,
+                discount: 0
+            },
+            // 计算属性
+            computed: {
+                // 每一次他的值改变, 都会动态的改变DOM元素中的值
+                total: function () {
+                    return ((
+                        this.price * 100 + 
+                        this.shipping * 100 + 
+                        this.handling * 100 - 
+                        this.discount * 100
+                    ) / 100).toFixed(2)
+                }
             }
         })
+
+        // Vue.component('currency-input', {
+        //     template: '\
+        //         <span>\
+        //             $\
+        //             <input\
+        //             ref="input"\
+        //             v-bind:value="value"\
+        //             v-on:input="updateVlaue($event.target.value)"\
+        //             >\
+        //         </span>\
+        //     ',
+        //     props: ['value'],
+        //     methods: {
+        //         // 不是直接更新值, 而是使用此方法来输入值进行格式化和位数限制
+        //         updateVlaue: function(value){
+        //             var formattedValue = value
+        //                 // 删除两侧的空格符
+        //                 .trim()
+        //                 // 保留两位小数
+        //                 .slice(0, value.indexOf('.') + 3)
+        //             // 如果值不统一, 手动覆盖以保持一致
+        //             if(formattedValue !== value){
+        //                 this.$refs.input.value = formattedValue
+        //             }
+        //             // 通过input事件发送数值
+        //             this.$emit('input', Number(formattedValue))
+        //         }
+        //     }
+        // })
+
+        // new Vue({
+        //     el: '#app',
+        //     data: {
+        //         price: 0
+        //     }
+        // })
 
 
         // Vue.component('button-counter', {

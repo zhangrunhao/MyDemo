@@ -343,10 +343,226 @@ this.$emit('update:foo', newValue)
 * 所以要让组件的`v-model`生效, 它必须:
     * 接受一个 `value` 属性
     * 在有新的value时触发`input`事件
+* 下面的例子是一个简单的自定义控件
+```html
+    <div id="app">
+        <currency-input v-model="price"></currency-input>
+    </div>
+```
+```js
+        Vue.component('currency-input', {
+            template: '\
+                <span>\
+                    $\
+                    <input\
+                    ref="input"\
+                    v-bind:value="value"\
+                    v-on:input="updateVlaue($event.target.value)"\
+                    >\
+                </span>\
+            ',
+            props: ['value'],
+            methods: {
+                // 不是直接更新值, 而是使用此方法来输入值进行格式化和位数限制
+                updateVlaue: function(value){
+                    var formattedValue = value
+                        // 删除两侧的空格符
+                        .trim()
+                        // 保留两位小数
+                        .slice(0, value.indexOf('.') + 3)
+                    // 如果值不统一, 手动覆盖以保持一致
+                    if(formattedValue !== value){
+                        this.$refs.input.value = formattedValue
+                    }
+                    // 通过input事件发送数值
+                    this.$emit('input', Number(formattedValue))
+                }
+            }
+        })
+            
+        new Vue({
+            el: '#app',
+            data: {
+                price: 0
+            }
+        })
+```
+* 上面的例子是简单的. 我们需要一个更加完善的货币过滤器
+```html
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/98739fb8ac6779cb2da11aaa9ab6032e52f3be00/currency-validator.js"></script>
 
+    <div id="app">
+        <currency-input label="Price" v-model="price"></currency-input>
+        <currency-input label="Shipping" v-model="shipping"></currency-input>
+        <currency-input label="Handling" v-model="handling"></currency-input>
+        <currency-input label="Discount" v-model="discount"></currency-input>
+        <p>Total: ${{ total }}</p>
+    </div>
+```
+```js
+        // 注册全局组件
+        Vue.component('currency-input', {
+            // 模板
+            template: '\
+                <div>\
+                <label v-if="label">{{ label }}</label>\
+                $\
+                <input\
+                    ref="input"\
+                    v-bind:value="value"\
+                    v-on:input="updateValue($event.target.value)"\
+                    v-on:focus="selectAll"\
+                    v-on:blur="formatValue"\
+                >\
+                </div>\
+            ',
+            // 传入的参数
+            props: {
+                // 组件上的value
+                value: {
+                    type: Number,
+                    default: 0
+                },
+                label: {
+                    type: String,
+                    default: ''
+                }
+            },
+            // html: 模板函数,编译好的时候, 执行钩子函数
+            mounted: function () {
+                // 格式化数据
+                this.formatValue()
+            },
+            // 组件方法
+            methods: {
+                // 更新数据的方法
+                updateValue: function (value) {
+                    // 获取结果.
+                    // 也就是经过验证器的结果
+                    var result = currencyValidator.parse(value, this.value)
+                    // 如果有警告的话
+                    if (result.warning) {
+                        // 就通过这个验证函数 做个什么事情..
+                        // 这个组件下面中 所有拥有 ref 注册的子组件.
+                        this.$refs.input.value = result.value
+                    }
+                    // 如果没有的话, 执行父组件的input方法, 并把结果的value传进去.
+                    this.$emit('input', result.value)
+                },
+                // 格式化函数
+                formatValue: function () {
+                    // 这个是这个组件的父组件中的方法.或者对象
+                    this.$refs.input.value = currencyValidator.format(this.value)
+                },
+                // 选中全部函数
+                selectAll: function (event) {
+                    // Workaround for Safari bug
+                    // http://stackoverflow.com/questions/1269722/selecting-text-on-focus-using-jquery-not-working-in-safari-and-chrome
+                    setTimeout(function () {
+                        event.target.select()
+                    }, 0)
+                }
+            }
+        })
 
+        new Vue({
+            el: '#app',
+            data: {
+                price: 0,
+                shipping: 0,
+                handling: 0,
+                discount: 0
+            },
+            // 计算属性
+            computed: {
+                // 每一次他的值改变, 都会动态的改变DOM元素中的值
+                total: function () {
+                    return ((
+                        this.price * 100 + 
+                        this.shipping * 100 + 
+                        this.handling * 100 - 
+                        this.discount * 100
+                    ) / 100).toFixed(2)
+                }
+            }
+        })
+```
 
+### 非父子组件通信
+* 有时候两个组件也需要通信(非父子组件). 可以用一个空的Vue实例作为中央事件总线:
+```js
+var bus = new Vue()
+```
+```js
+// 触发组件A中的事件
+bus.$emit('id-selected', 1)
+```
+```js
+// 在组件 B 创建的钩子中监听事件
+bus.$on('id-selected', function(id){
+    // ...
+})
+```
+* 在复杂的情况下, 我们应该考虑专门的 状态管理模式
 
+## 使用Slot分发内容
+* 在使用组件时, 我们常常要像这样组合它们:
+```html
+<app>
+    <app-header></app-header>
+    <app-footer></app-footer>
+</app>
+```
+* 注意两点:
+    * `<app></app>`组件不知道它的挂载点会有什么内容. 挂载点的内容由`<app></app>`的父组件决定的.
+    * `<app></app>`组件很可能有它自己的模板
+* 为了让组件可以组合, 我们需要一种方式来混合父组件的内容与子组件自己的模板.这个过程被称为**内容分发**. Vue.js实现了一个内容分发API, 参照了当前web组件规范草案, 使用特殊的`<slot></slot>`作为原始内容的插槽.
 
+### 编译作用域
+* 在深入内容分发API之前,我们先明确内容在哪个作用域里编译. 假定模板为:
+```html
+<child-component>
+    {{ message }}
+</child-component>
+```
+* `message` 应该绑定到父组件的数据, 还是绑定到子组件的数据? 答案是父组件.
+* 组件作用域简单地说是:
+* 父组件模板的内容在父组件作用域内编译; 子组件模板的内容在子组件作用域内编译.
+* 一个常见错误是试图在父组件模板内将一个指令绑定到子组件的属性/方法.
+```html
+<!-- 无效 -->
+<child-component v-show="someChidProperty"></child-component>
+```
+* 假定`someChildProperty`是子组件的属性, 上例不会如预期那样工作. 父组件模板不应该知道子组件的状态.
+* 如果要绑定作用域内的指令到一个组件的根节点, 你应当在组件自己的模板上做:
+```js
+Vue.component('child-component', {
+    // 有效, 因为是在正确的作用域内
+    template: '<div v-show="someChildProperty">Child</div>',
+    data: function(){
+        return {
+            someChildProperty: true
+        }
+    }
+})
+```
+* 类似地, 分发内容是在父作用域内编译.
 
+### 单个Slot
+* 除非子组件模板包含至少一个`<slot></slot>`插口, 否则父组件的内容将会被丢弃. 当子组件模板只有一个没有属性的Slot时, 父组件整个内容片断将插入到slot所在的DOM位置, 并替换掉slot标签本身.
+* 除非在`<slot></slot>`标签中的任何内容都被视为备用内容. 备用内容在子组件的作用域内编译, 并且只有在宿主元素为空, 且没有要插入的内容时才显示备用内容.
+* 假定`my-component`组件有下面模板
+```html
+<div>
+    <h2>我是子组件的标题</h2>
+    <slot>
+        只有在没有要分发的内容时才会显示.
+    </slot>
+</div>
+```
+* 父组件模板:
+```html
+<div>
 
+</div>
