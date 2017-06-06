@@ -20,4 +20,9 @@ var vm = new Vue({
 
 vm.b = 2
 // vm.b 是非响应的.
-* Vue不允许在已经创建的实例
+```
+* Vue不允许在已经创建的实例上童泰添加新的根级响应式属性(root-level reactive propety). 然而它可以使用`Vue.set(object, key, value)`方法将响应属性添加到嵌套的对象上:
+```js
+Vue.set(vm.someObeject, 'b', 2)
+```
+* 您还可以使用

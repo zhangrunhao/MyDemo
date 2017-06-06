@@ -1,21 +1,30 @@
+// 首先检查版本
 require('./check-versions')()
 
+// 载入配置
 var config = require('../config')
+// 如果配置项不存在的话
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
+// 在浏览器中打开地址
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
+
+// 加载一个组件
 var proxyMiddleware = require('http-proxy-middleware')
+// 如果是测试环境的话, 加载测试的那个配置文件, 否则加载运行那个配置文件
 var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
 
+// 端口号
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
+// 是否在浏览器中自动打开
 // automatically open browser, if not set will be false
 var autoOpenBrowser = !!config.dev.autoOpenBrowser
 // Define HTTP proxies to your custom API backend
@@ -25,10 +34,12 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var compiler = webpack(webpackConfig)
 
+// 加载一个webpack的运行组件
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
 })
+
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {}

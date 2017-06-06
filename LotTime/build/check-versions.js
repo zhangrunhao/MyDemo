@@ -1,3 +1,5 @@
+// 检测各个依赖包版本问题
+
 var chalk = require('chalk')
 var semver = require('semver')
 var packageConfig = require('../package.json')

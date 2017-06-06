@@ -1,23 +1,23 @@
+// 组件
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <router-view
+    class="view"
+    kepp-alive
+    transtion
+    transtion-mode="out-in">
+    </router-view>
   </div>
 </template>
 
+// JS
 <script>
 export default {
-  name: 'app'
+  components: {}
 }
 </script>
 
-<style>
-#app {  
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+// 样式
+<style lang="scss">
+  @import  "./style/style"
 </style>
