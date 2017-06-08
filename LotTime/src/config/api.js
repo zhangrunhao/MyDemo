@@ -4,8 +4,9 @@ var root = 'https://cnodejs.org/api/v1'
 var request = require('superagent')
 
 // 自定义判断元素类型
-function toType (obj) {
-  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+// 传入任何的参数, 返回这个参数的数据类型
+function toType (param) {
+  return ({}).toString.call(param).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
 
 // 参数过滤函数
@@ -16,7 +17,7 @@ function filterNull (o) {
     }
     if (toType(o[key]) === 'string') {
       o[key] = o[key].trim()
-      if (o[key].length === o) {
+      if (o[key].length === 0) {
         delete o[key]
       }
     }

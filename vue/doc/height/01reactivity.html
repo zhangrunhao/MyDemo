@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+<div id="example">
+  <example></example>
+</div>
+</body>
+</html>
+
+
+<script src="./vue.js"></script>
+
+<script>
+Vue.component('example', {
+  template: '<span v-on:click="updateMessage">{{ message }}</span>',
+  data: function () {
+    return {
+      message: 'not updated'
+    }
+  },
+  methods: {
+    updateMessage: function () {
+      alert('dd')
+      this.message = 'updated'
+      console.log(this.$el.textContent) // => '没有更新'
+      this.$nextTick(function () {
+        console.log(this.$el.textContent) // => '更新完成'
+      })
+    }
+  }
+})
+
+
+var vm = new Vue({
+  el: '#example',
+  data: {
+    message: '123'
+  }
+})
+
+// vm.message = 'new message' //更改数据
+// vm.$el.textContent === 'new message' // false
+// Vue.nextTick(function(){
+//   vm.$el.textContent === 'new message' // true
+// })
+
+
+
+
+</script>

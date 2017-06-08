@@ -11,13 +11,13 @@ module.exports = {
     env: require('./prod.env'), 
     // index文件. 放到哪里
     // resolve: 相对路径变为绝对路径
-    index: path.resolve(__dirname, '../dist/index.html'), // 指定index打包后的指定路径,
+    index: path.resolve(__dirname, '../../testPro/www/index.html'), // 指定index打包后的指定路径,
     // 资源的根文件夹
-    assetsRoot: path.resolve(__dirname, '../dist'), // 打包之后的存放路径
+    assetsRoot: path.resolve(__dirname, '../../testPro/www'), // 打包之后的存放路径
     // 资源的存放目录
     assetsSubDirectory: 'static',
     // 资源的公共路径为 根路径
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     // 是否生成公共资源地图
     productionSourceMap: true,
 

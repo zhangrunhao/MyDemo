@@ -25,4 +25,71 @@ vm.b = 2
 ```js
 Vue.set(vm.someObeject, 'b', 2)
 ```
-* 您还可以使用
+* 您还可以使用`vm.$set`实例方法, 这也是全局`Vue.set`方法的别名:
+```js
+this.$set(this.someObject, 'b', 2)
+```
+* 有时你想向已有对象上添加一些属性, 例如使用 `Object.assign()` 或 `_.extend()`方法来添加属性. 但是, 添加到对象上的新属性不会触发更新. 在这种情况下可以创建一个新的对象, 让它包含对象的属性和新的属性:
+```js
+// 代替 `Object.assign(this.someObject, {a: 1, b:2})`
+this.someObject = Obecjt.assign({}, this.someObject, {a:1, b:2})
+```
+* 也有一些数组相关的问题, 在之前的列表渲染中有所描述
+
+## 声明响应式属性
+* 由于Vue不允许动态添加根级响应式属性, 所以你必须在初始化实力前声明根级响应式属性, 哪怕只是一个空值:
+```js
+var vm = new Vue({
+  data: {
+    // 声明 message 为一个空值字符串
+    message: ''
+  },
+  template: '<div>{{message}}</div>'
+})
+// 之后设置 `message`
+vm.message = 'Hello'
+```
+* 如果你在data选项中未声明`message`, Vue将警告你渲染函数在视图访问的属性不存在.
+* 这样的限制在背后是有其技术原因的, 它消除了在依赖项跟踪系统中的一类边界情况, 也使Vue实例在类型检查系统的帮助下运行的更高效. 而且在代码可维护性方面也有一点重要的考虑: 'data'对象就像组件状态的概要, 提前声明所有的响应式属性, 可以让组件代码在以后重新阅读或其他开发人员阅读时更易于被理解.
+
+## 异步更新队列
+* 可能你还没有注意到, Vue异步执行DOM更新. 只要观察到数据变化, Vue将开启一个队列, 并缓冲在同一事件中发送的所有数据改变. 如果同一个watcher被多次触发, 只会一次推入到队列中. 这种在缓冲时去除重复数据对于避免不必要的计算和DOM非常重要. 然后, 在下一个事件循环"tick"中, Vue刷新队列并执行实际(已去重的)工作. Vue在内部尝试对异步队列使用原生的`Promise.then`和`MutationObserver`, 如果执行环境不支持, 会采用`setTimeout(fn, 0)`
+
+* 例如, 当你设置`vm.someData = 'new value'`, 该组件不会立即重新渲染. 当刷新队列时, 组件会在事件循环队列清空时的下一个"tick"更新. 多数情况下我们不需要关心这个过程, 但是如果你想在DOM状态更新后做点什么, 这就可能会有点棘手. 虽然Vue.js通常鼓励开发人员沿着"数据驱动"的方式思考, 避免直接接触DOM, 但是有时我们确实需要这么做. 为了在数据变化之后立即使用`Vue.nextTick(callback)`. 这样回调函数在DOM更新完成后就会调用. 例如:
+```html
+<div id="example">{{message}}</div>
+```
+```js
+var vm = new Vue({
+  el: '#example',
+  data: {
+    message: '123'
+  }
+})
+
+vm.message = 'new message' //更改数据
+vm.$el.textContent === 'new message' // false
+Vue.nextTick(fuction(){
+  vm.$el.textContent === 'new message' // true
+})
+```
+* 在组件内使用 `vm.$nextTick()` 实例方法特别方便, 因为它不需要全局 Vue, 并且回调函数中的 `this` 将自动绑定到当前的Vue实例上:
+```js
+Vue.component('example', {
+  template: '<span>{{message}}</span>',
+  data: function(){
+    return {
+      message: 'not updated'
+    }
+  },
+  methods: {
+    updateMessage: function(){
+      this.message = 'updated'
+      console.log(this.$el.textContent) // => '没有更新'
+      this.$nextTick(function(){
+        console.log(this.$el.textContent) // => '更新完成'
+      })
+    }
+  }
+})
+```
