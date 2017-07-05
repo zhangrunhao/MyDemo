@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./src/App.vue"],"names":[],"mappings":"AACA,MACE,UAAY,CAEd,MACE,aAAe,CAEjB,SACI,4BAA8B","file":"static/css/app.0b0c67b0aff04b6324b981aa48656eb0.css","sourcesContent":["\n.logo {\n  color: blue;\n}\n.list {\n  line-height: 2;\n}\n.list li {\n    border-bottom: 1px solid #ddd;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/App.vue"],"sourceRoot":""}
