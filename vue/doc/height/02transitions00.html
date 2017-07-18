@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0
+  }
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+
+
+  .bounce-enter-active {
+    animation: bounce-in .5s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in .5s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+
+  </style>
+</head>
+<body>
+  <transition 
+  name="" mode=""
+  v-on:before-enter="beforeEnter"
+  v-on:enter="enter"
+  v-on:after-enter="afterEnter"
+  v-on:enter-cancelled="enterCancelled"
+
+  v-on:before-leave="beforeLeave"
+  v-on:leave="leave"
+  v-on:after-leave="afterLeave"
+  v-on:leave-cancelled="leaveCancelled"
+  >
+    
+  </transition>
+
+
+
+
+
+<div id="demo">
+  <button v-on:click="show = !show">
+    Toggle
+  </button>
+  <transition name="fade" mode="">
+    <p v-if="show">hello</p>
+  </transition>
+</div>
+
+<div id="example-1">
+  <button @click="show = !show">
+    Toggle Reander
+  </button>
+  <transition name="slide-fade" mode="">
+    <p v-if="show">hello</p>
+  </transition>
+</div>
+
+<div id="example-2">
+  <button @click="show = !show">Toggle show</button>
+  <transition name="bounce" mode="">
+    <p v-if="show">Loot at me!</p>
+  </transition>
+</div>
+
+
+<link href="https://unpkg.com/animate.css@3.5.1/animate.min.css" rel="stylesheet" type="text/css">
+
+<div id="example-3">
+  <button @click="show = !show">Toggle</button>
+  <transition 
+  name="custom-classes-transtion" 
+  mode=""
+  enter-active-class="animated wobble"
+  leave-active-class="animated bounceOut"
+  >
+    <p v-if="show">hello</p>
+  </transition>
+</div>
+</body>
+</html>
+
+
+<script src="./vue.js"></script>
+
+<script>
+  new Vue({
+    el: '#example-3',
+    data: {
+      show: true
+    },
+    methods: {
+      // 进入中
+      beforeEnter: function (el) {
+        // ...
+      },
+      // 此回调函数是可选项的设置
+      // 与 CSS 结合时使用
+      enter: function (el, done) {
+        // ...
+        done()
+      },
+      afterEnter: function (el) {
+        // ...
+      },
+      enterCancelled: function (el) {
+        // ...
+      },
+
+
+      // 离开时
+      beforeLeave: function (el) {
+        // ...
+      },
+      // 此函数是可选项的设置
+      // 与 CSS 结合使用
+      leave: function (el, done) {
+        // ...
+        done()
+      },
+      afterLeave: function (el) {
+        // ...
+      },
+      // leaveCancelled只能用于 v-show 中
+      leaveCancelled: function (el) {
+        // ...
+      }
+    }
+  })
+  new Vue({
+    el: '#example-2',
+    data: {
+      show: true
+    }
+  })
+
+  new Vue({
+    el: '#example-1',
+    data: {
+      show: true
+    }
+  })
+
+  new Vue({
+    el: '#demo',
+    data: {
+      show: true
+    }
+  })
+</script>
