@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS02</title>
+</head>
+<style>
+   :root {
+    /* color: red; */
+    /* background-color: #daa; */
+  }
+  /* html {
+    background-color: #eee;
+  } */
+  /* div p:only-of-type {
+    color: red;
+  } */
+
+   :target {
+    border: 1px solid #ccc;
+    background-color: #daa;
+  }
+
+  .clip {
+    text-overflow: clip;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 200px;
+    background: #ccc;
+  }
+
+  .ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 200px;
+    background: #ccc;
+  }
+
+  div.textDecoration {
+    font-size: 60px;
+    -webkit-text-fill-color: black;
+    -webkit-text-stroke-color: red;
+    -webkit-text-stroke-width: 2.75px;
+  }
+
+  .multi_column_style {
+    column-count: 3;
+    column-rule: 1px solid #bbb;
+    column-gap: 2em;
+  }
+
+  .gradient_style {
+    /* background-image: -webkit-gradient(radial, 50 50, 50, 50 20, 10, from(black), color-stop(0.5, red), to(blue)); */
+    background-image: -webkit-gradient(radial, 50 50, 50, 50 1, 0, from(black), to(white));
+    height: 100px;
+    width: 100px;
+  }
+
+  .classReflect {
+    -webkit-box-reflect: below 10px -webkit-gradient(linear, left top, left bottom, from(transparent),
+    to(rgba(255, 255, 255, 0.51)));
+  }
+  .background-test {
+    background-color: #aaa;
+    width: 300px;
+    height: 300px;
+    background-image: url('./test.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+</style>
+
+<body>
+
+  <div id="test" class="background-test, a, sss, dc1d">
+
+  </div>
+  <div class="gradient_style">
+
+  </div>
+  <div class="multi_column_style classReflect">
+    取值:none | [ underline || overline || line-through || blink ] | inherit none: 定义正常显示的文本 [underline || overline || line-through
+    || blink]: 四个值中的一个或多个 underline: 定义有下划线的文本 overline: 定义有上划线的文本 line-through: 定义直线穿过文本 blink: 定义闪烁的文本 inherit: 继承 引用网址:http://www.dreamdu.com/css/property_text-decoration/
+    初始值: none 继承性: 否 适用于: 所有元素 text:文本.decoration:装饰
+  </div>
+  <div class="textDecoration">
+    文本渲染效果
+  </div>
+  <div class="clip">
+    不显示省略标记，而是简单的裁切条
+  </div>
+
+  <div class="ellipsis">
+    当对象内文本溢出时显示省略标记
+  </div>
+  <div style="width:300px; border:1px solid #999999; overflow: hidden">
+    wordwrapbreakwordwordwrapbreakwordwordwrapbreakwordwordwrapbreakword
+  </div>
+
+
+  <div style="width:300px; border:1px solid #999999; word-wrap:break-word;">
+    wordwrapbreakwordwordwrapbreakwordwordwrapbreakwordwordwrapbreakword
+  </div>
+  <p><a href="#news1">跳转到内容1</a></p>
+  <p><a href="#news2">跳转到内容2</a></p>
+  <p id="news1">内容1</p>
+  <p id="news2">内容</p>
+  <div>
+    <div></div>
+    <p>
+      <span>span</span>
+      <em>em</em>
+    </p>
+    <p>
+      second p
+    </p>
+  </div>
+
+
+</body>
+<script>
+  var domObj = document.getElementById('test')
+  console.log(typeof domObj.className)
+</script>
+</html>

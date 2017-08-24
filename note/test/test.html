@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  #dv {
+    /* width: 200px;
+    height:300px; */
+    /* background-color: #baa; */
+    border: 1px solid #555;
+    margin-bottom: 100px;
+    /* font-size: 0; */
+  }
+  /* #dv::after{
+    width: 10px;
+    height: 10px;
+    display: block;
+    background-color: firebrick;
+    content: 'dddd';
+  } */
+
+  img {
+    width: 200px;
+    height: 200px;
+    /* display: block; */
+    vertical-align: middle;
+  }
+</style>
+
+<body>
+  <div id="dv">
+    <img src="./test.jpg" alt="">
+  </div>
+  <a href="./备课界面--张.docx">下载</a>
+  <button onclick="testFun" type="button" id="btn">测试按钮</button>
+  <input type="text" id="inp" name="" value="">
+  <input class="spc" value="text" id="test">
+  <ul id="ulDom">
+    <li class="spc">spc2</li>
+    <li class="spc sss ">
+      <div>this is a div</div>
+    </li>
+    <li></li>
+    <li></li>
+    <li class="spc">spc3</li>
+    <li class="spc">spc4</li>
+    <li></li>
+  </ul>
+  <div class="spc">
+    other div
+  </div>
+  <script>
+    var btn = document.getElementById('btn')
+    if (btn.addEventListener) {
+      btn.addEventListener('click', function () {
+        alert('成功')
+      }, false)
+    } else {
+      btn.attachEvent('onclick', function () {
+        alert('成功')
+      })
+    }
+    // btn.onclick = function () {
+    //   alert('成功')
+    // }
+    // function testFun() {
+    //   alert('sucess')
+    // }
+    // var res = getComputedStyle(dv, '::alter').content
+
+    // console.log(res)
+
+    // var res = byClassName(ulDom, 'spc')
+    // console.log(res)
+
+    // function byClassName(parent, className) {
+
+    //   var arr = []; // 用来存储最终查找到的类名
+    //   var els = parent.getElementsByTagName('*') // 查找这个父元素下面的所有子元素
+
+    //   for (var i = 0; i < els.length; i++) {
+    //     var child = els[i]
+    //     var classNames = child.className.split(' ')
+    //     for(var j = 0; j < className.length; j++) {
+    //       if(classNames[j] === className){
+    //         arr.push(child)
+    //         break
+    //       }
+    //     }
+    //   }
+    //   return arr
+    // }
+    // console.log(dv)
+    // console.log(test)
+    // test.onpaste = test.oncopy = test.oncut = function (e) {
+    //   var clipboardData = (event.clipboardData || window.clipboardData);
+    //   console.log(clipboardData)
+    //   var text = clipboardData.getData("text")
+    //   console.log(text)
+    // }
+    // test.onbeforepaste = test.onbeforecopy = test.onbeforecut = function (e) {
+    //   e = e || event;
+    //   test.value = e.type;
+    //   return false;
+    // }
+    // var inp = document.getElementById('inp')
+    // inp.onblur = getClipboardText
+
+    // var btn = document.getElementById('btn')
+    // btn.addEventListener('click', getClipboardText, false)
+
+    // // var dv = document.getElementById('dv')
+    // // dv.onmouseover = dvOver
+    // // dv.onmouseout = dvOut
+
+    // function getClipboardText(event) {
+    //   console.log(event)
+    //   var clipboardData = (event.clipboardData || window.clipboardData);
+    //   console.log(clipboardData)
+    //   var text = clipboardData.getData("text")
+    //   console.log(text)
+    //   return text
+    // }
+
+    // function dvOver(event) {
+    //   console.log('over')
+    //   console.log(event.relatedTarget)
+    // }
+
+    // function dvOut(event) {
+    //   console.log('out:')
+    //   console.log(event.relatedTarget)
+    // }
+
+    // function MyFun(event) {
+    //   event = getEvent(event)
+    //   console.log(event.target)
+    //   console.log('这是MyFun')
+    // }
+
+    // function getEvent(event) {
+    //   return event ? event : window.event
+    // }
+  </script>
+</body>
+
+</html>

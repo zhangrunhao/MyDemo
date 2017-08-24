@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .ul {
+      color: red;
+    }
+
+    html:-moz-full-screen {
+      background: red;
+    }
+
+    html:-webkit-full-screen {
+      background: red;
+    }
+
+    html:fullscreen {
+      background: red;
+    }
+
+    #textarea {
+      width: 300px;
+      border: 1px solid #ccc;
+      min-height: 150px;
+      max-height: 300px;
+      overflow: auto;
+      font-size: 14px;
+       outline: none; 
+    }
+  </style>
+</head>
+
+<body>
+  <a data-v-74b4415a="" data-v-d589a78a="" href="http://y.qq.com/w/album.html?albummid=0044K2vN1sT5mE"><img data-v-74b4415a="" data-v-d589a78a="" src="http://y.gtimg.cn/music/photo_new/T003R720x288M000001YCZlY3aBifi.jpg" alt=""></a>
+  <div id="textarea" contenteditable="true"></div>
+  <ul class="header class2 class3">
+    <li onclick="launchFullScreen()">进入全屏</li>
+    <li onclick="exitFullscreen()">退出全屏</li>
+    <li id="showState">3</li>
+    <li>4</li>
+  </ul>
+  <!-- 使用等宽字体 -->
+  <textarea rows="5" cols="5">我是通过cols和rows定的大小，我的cols是20，rows是10</textarea>
+  <br>
+  <!-- 使用CSS的宽高 -->
+  <textarea style="width: 200px; height: 100px">我是通过width和height定的大小，我的width是200px，heigh是100px</textarea>
+  <input type="text" value="内容在此" size="10" Maxlength="5">
+  <script>
+    document.addEventListener('visibilitychange', function () {
+      var isHidden = document.hidden;
+      if (isHidden) {
+        console.log('页面隐藏')
+      } else {
+        console.log('页面显示');
+      }
+    });
+
+
+    document.addEventListener("fullscreenchange", function () {
+      document.getElementById('showState').innerHTML = (document.fullscreen) ? "" : "not ";
+    }, false);
+
+    document.addEventListener("mozfullscreenchange", function () {
+      document.getElementById('showState').innerHTML = (document.mozFullScreen) ? "" : "not ";
+    }, false);
+
+    document.addEventListener("webkitfullscreenchange", function () {
+      document.getElementById('showState').innerHTML = (document.webkitIsFullScreen) ? "" : "not ";
+    }, false);
+
+
+    // 退出 fullscreen
+    function exitFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozExitFullScreen) {
+        document.mozExitFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+    // 退出 fullscreen
+    function exitFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozExitFullScreen) {
+        document.mozExitFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+    // 找到支持的方法, 使用需要全屏的 element 调用
+    function launchFullScreen(element) {
+      var element = element || document.documentElement;
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+      }
+    }
+    // 新的选择器
+    // var selector = document.querySelector('li');
+    // console.log(selector); // <li>1</li>
+    // console.log(selector.innerHTML) // 1
+    // var selector = document.querySelector('.header li');
+    // console.log(selector.innerHTML); //1
+    // var selector = document.querySelectorAll('.header li');
+    // console.log(selector) // (4) [li, li, li, li]
+    // var ul = document.getElementsByTagName("ul")[0];
+
+    // classList属性
+    // var ul = document.getElementsByClassName('header')[0]
+    // console.log(ul.classList) // [ul.header]
+    // ul.classList.add('new')
+    // console.log(ul.classList) // ["header", "class2", "class3", "new", value: "header class2 class3 new"]
+    // ul.classList.remove('header')
+    // console.log(ul.classList) // ["class2", "class3", "new", value: "class2 class3 new"]
+    // console.log(ul.classList.contains('header'))
+  </script>
+</body>
+
+</html>
