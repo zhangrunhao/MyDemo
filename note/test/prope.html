@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./jquery-3.2.1.js"></script>
+  <script>
+    onload = function () {
+
+
+      function Foo() {
+
+      }
+      var f1 = new Foo
+      f1.a = 10
+      Foo.prototype.a = 100
+      Foo.prototype.b = 200
+      var item
+      console.dir(f1)
+      for (item in f1) {
+        if (f1.hasOwnProperty(item)) {
+          console.log(item)
+        }
+      }
+
+
+      // function Fn() {
+      //   this.aaaa = '这是一个名字'
+      //   this.age = 20
+      // }
+
+      // Fn.prototype.nawwwwme = 'this is name'
+      // Fn.prototype.getAge = function () {
+      //   console.log('ddd')
+      // }
+
+      // // fn.__proto__ === Fn.prototype
+      // // var fn1 = new Fn()
+      // // var obj = new Object
+      // // console.dir(obj.__proto__)
+      // // console.dir(Object.prototype.__proto__)
+      // // console.dir(Object)
+      // console.dir(Function.__proto__)
+      // console.dir(Function.prototype)
+      // // console.dir(Object.__proto__)
+
+    }
+  </script>
+</body>
+
+</html>
