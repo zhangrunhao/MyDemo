@@ -5,42 +5,43 @@
   // 在一些实质的机器中, 就是this, 所以不懂什么意思
   // 如果没有任何对象, 那就是一个空对象了
   var root = 
-  typeof self == 'object' && self.self === self && self ||
-  typeof global == 'object' && global.global === global && global ||
-  this ||
-  {};
+    typeof self == 'object' && self.self === self && self ||
+    typeof global == 'object' && global.global === global && global ||
+    this ||
+    {};
 
   // 预先保存下`_`可能变化的值
   var previousUnderscore = root._;
 
   // 保存各个构造函数的原型
   var ArrayProto = Array.prototype,
-  ObjProto = Object.prototype;
+    ObjProto = Object.prototype;
   // Symbol是ES6的第一种基本类型
   // 拥有独一无二的属性值
   var SymbolProto = typeof Symbol !== 'undeifned' ? Symbol.prototype : null
 
 
-  // 把原型上的一些方法拿了下来
-  // 向数组的最后添加一个元素
-  var  push = ArrayProto.push,
-  // 从数组中返回指定的元素, 参数是从哪个索引到哪个索引的位置, 如果是负数的话, 就是从后面开始截取
-  //这个返回的是一个新数组, 原来的数组不变, 如果想要改变原来的数组的话, 就把调用splice, 就会从原来的数组中截取下来, 形成一个新数组
-  slice = ArrayProto.slice,
-  // 两个数组拼接取来
-  concat = ArrayProto.concat,
-  // 变成字符串的方法
-  toString = ObjProto.toString,
-  // 判断是不是在自己的对象下面, 返回的时候一个布尔类型, 如果是通过该 __proto__找到的, 就返回一个false
-  hasOwnProperty = Object.hasOwnProperty;
+    // 把原型上的一些方法拿了下来
+    // 向数组的最后添加一个元素
+  var push = ArrayProto.push,
+    // 从数组中返回指定的元素, 参数是从哪个索引到哪个索引的位置, 如果是负数的话, 就是从后面开始截取
+    //这个返回的是一个新数组, 原来的数组不变, 如果想要改变原来的数组的话, 就把调用splice, 就会从原来的数组中截取下来, 形成一个新数组
+    slice = ArrayProto.slice,
+    // 两个数组拼接取来
+    concat = ArrayProto.concat,
+    // 变成字符串的方法
+    toString = ObjProto.toString,
+    // 判断是不是在自己的对象下面, 返回的时候一个布尔类型, 如果是通过该 __proto__找到的, 就返回一个false
+    hasOwnProperty = Object.hasOwnProperty;
 
 
   // 所有ES5中, 我们在这里公告, 所有我们想要用到的方法
-  var nativeIsArray = Array.isArray,
-  // 知道所有的属性名
-  nativeKeys = Object.keys,
-  // create用来创建一个对象, 并且, 这个对象可以指定原型链的指向
-  nativeCreate = Object.create;
+  var 
+    nativeIsArray = Array.isArray,
+    // 知道所有的属性名
+    nativeKeys = Object.keys,
+    // create用来创建一个对象, 并且, 这个对象可以指定原型链的指向
+    nativeCreate = Object.create;
 
   // 创建一个空对象, 用来支持原型链的调用, 个人理解
   var Ctor = function () {};
@@ -79,7 +80,7 @@
   // 传入的参数, 分别是: 函数, 然后调用这个函数的, 文本内容, 然后是参数的个数
   // 仔细看看这个函数, 就是传入一个回调函数, 一个这个函数的执行上下文, 然后传入需要的参数个数
   // 根据参数的个数, 返回一个函数. 这个函数
-  // 
+  // todo: 感觉这个函数应该配合真正的运用情况才能看清楚
   var optimizeCb = function (func, context, argCount) {
     // void 0 的意思就是undefiend
     // void是一个函数, 无论什么时候, 返回值都是undefiend
@@ -108,6 +109,33 @@
     return function () {
       return func.apply(context, arguments)
     }
+  }
+
+  // 不知道这里新建了一个什么
+  var builtinTteratee;
+
+  // 又一个不太了解的函数
+  // 主要都没有用过这个类库
+  // 对一些方法, 很不敏感...
+  // 对回调函数进行处理
+  // 官方注释: 一个内部的方法, 去形成回调函数
+  // 这个回调函数能够对集合每一个元素应用, 并返回每一个想要的结果
+  // 一个随意的回调函数, 一个特性匹配, 或者是一个 特征存取
+  var cb = function (value, context, argCount) {
+    // 
+    if (_.itertee !== builtinIteratee) return _.itertee(value, context);
+    if (value == null) return _.identity;
+    if (_.isFunction(value)) return optimizeCb(value, context, argCount);
+    if (_.isObject(value) && !_.isArray(value)) return _.matcher(value);
+    return _.property(value)
+  }
+  
+  // 这好像是个迭代器
+  // 我们的回调函数形成一层外边的包装, 用户可以定制`_.iteratee`, 如果他们想要额外的断言(谓语)/迭代, 速记样式.
+  // 这是抽象隐藏, 内部的唯一的 argCount, argument ARGUMENT
+  // 
+  _.iteratee = builtinTteratee = function (value, context) {
+    return cd(value, context, Infinity)
   }
 
 })()

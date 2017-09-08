@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./underscord_1.8.3.js"></script>
+  <script>
+    var obj = {
+      name: 'zhang'
+    }
+    // 扩展
+    _.mixin({
+      method1: function (obj) {
+        console.dir(obj)
+      },
+      method2: function (arr, a) {
+        console.log(a)
+        console.log(arr)
+        return arr
+      }
+    })
+
+    _(obj).chain().method2('dd').method1()
+    // dd
+    // {name: zhang}
+    // [Object}
+  </script>
+</body>
+
+</html>
