@@ -77,17 +77,22 @@
   // 这个再underscore中是一个基础函数
   // 用来优化JS的执行效率
   // 传入的参数, 分别是: 函数, 然后调用这个函数的, 文本内容, 然后是参数的个数
+  // 仔细看看这个函数, 就是传入一个回调函数, 一个这个函数的执行上下文, 然后传入需要的参数个数
+  // 根据参数的个数, 返回一个函数. 这个函数
+  // 
   var optimizeCb = function (func, context, argCount) {
     // void 0 的意思就是undefiend
     // void是一个函数, 无论什么时候, 返回值都是undefiend
-    if (context === void 0) return func; // 如果没有传入谁调用的func, 那么直接把这个func返回出去就好了.
+    if (context === void 0) return func; // context, 就是表示在func中作用域将是谁的
 
     // 接下来根据参数的个数进行运算
     switch (argCount) {
       case 1:
+        // 如果是一个参数的话, 就返回一个函数, 然后这个闭包的环境, 只能接受一个参数, 然后使用call改变作用域, 参数放到里面
         return function (value) {
           return func.call(context, value);
         };
+      // 因为没有2的这个情况,就给删了..
       case null:
       case 3:
         return function (value, index, collection) {
@@ -104,6 +109,5 @@
       return func.apply(context, arguments)
     }
   }
-
 
 })()
