@@ -1,7 +1,26 @@
 var _ = require('./underscord_1.8.3')
 
+var arr = [1, 2, 3]
+var obj = {
+  name: 'zhang',
+  age: 24
+}
 
 
+
+
+
+
+
+// 如果
+_.each(arr, function (item, index) {
+  arr[index] = ++item
+  console.log(index)
+  console.log(item)
+}, global)
+console.log(arr)
+
+console.log(global)
 
 
 
@@ -9,12 +28,12 @@ var _ = require('./underscord_1.8.3')
 // 这时所有的函数, query函数, 都已经被控制了, 
 // 返回了一个新的函数
 
-var qurery = _(function () {
-  console.log('querying')
-}).throttle(1, 3000)
+// var qurery = _(function () {
+//   console.log('querying')
+// }).throttle(1, 3000)
 
-qurery()
-qurery()
+// qurery()
+// qurery()
 // each 和 map
 // var arr = [1, 2, 3]
 // _(arr).each((item, index) => {

@@ -11,25 +11,22 @@
 <body>
   <script src="./underscord_1.8.3.js"></script>
   <script>
+    var arr = [1, 2, 3]
     var obj = {
-      name: 'zhang'
+      name: 'zhang',
+      age: 24
     }
-    // 扩展
-    _.mixin({
-      method1: function (obj) {
-        console.dir(obj)
-      },
-      method2: function (arr, a) {
-        console.log(a)
-        console.log(arr)
-        return arr
-      }
-    })
 
-    _(obj).chain().method2('dd').method1()
-    // dd
-    // {name: zhang}
-    // [Object}
+
+
+    _.each(arr, function (item, index) {
+      arr[index] = ++item
+      console.log(index)
+      console.log(item)
+    }, window)
+    console.log(arr)
+
+    console.log()
   </script>
 </body>
 
