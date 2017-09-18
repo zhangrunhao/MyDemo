@@ -166,18 +166,28 @@
 
   
   // Similar to ES6's rest param (http://ariya.ofilabs.com/2013/03/es6-and-rest-parameter.html)
-  // This accumulates the arguments passed into an array, after a given index.
+  // 类似与ES6的rest参数
+  // This accumulates the arguments passed into an array, after a given index.\
+  // 把startIndex后面的参数放到一个数组里面, 并作为参数传入fn
+  // 函数, 传入一个函数, 和开始的索引, 
   var restArgs = function (func, startIndex) {
     startIndex = startIndex == null ? func.length - 1 : +startIndex;
-    return function () {
+    // 开始的索引, 如果没有传入, 就是func的长度 - 1 (变成了 -1) 如果传入的话, 保证是个正值  
+    return function () { // 闭包返回函数
+      // 长度是参数的长度, 与传入的开始放入的索引, 最起码是个0, 不能为负数
       var length = Math.max(arguments.length - startIndex, 0),
+        // 建立一个长度为我们刚刚好要使用的长度的数组
         rest = Array(length),
+        // 索引为0
         index = 0;
+
       for (; index < length; index++) {
+        // 开始所以往后的所有参数, 放入到rest这个数组中
         rest[index] = arguments[index + startIndex];
       }
+      // 看看我们的开始索引是多少
       switch (startIndex) {
-        case 0:
+        case 0: // 表示
           return func.call(this, rest);
         case 1:
           return func.call(this, arguments[0], rest);
