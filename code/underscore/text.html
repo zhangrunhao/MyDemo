@@ -11,44 +11,11 @@
 <body>
   <script src="./underscord_1.8.3.js"></script>
   <script>
-    // 检查字符串包含某些字符
-    // var res = containsAll("banana", "a", "nan")
-    // console.log(res)
-
-    // function containsAll(haystack) {
-    //   for (var i = 1; i < arguments.length; i++) {
-    //     var needle = arguments[i];
-    //     if (haystack.indexOf(needle) === -1) {
-    //       return false
-    //     }
-    //   }
-    //   return true
-    // }
-
-    // // ...表示了needles是一个Rest参数, 剩余所有的实参都被放到这个needles数组中.
-    // // 只能将函数的最后一个参数作为Rest参数
-    // // 函数之前的参数, 正常填充, 如果不够, Rest参数是一个[], 不会是undeifend
-    // function containsAll(haystack, ...needles) { 
-    //   for (var needle of needles) {
-    //     if (haystack.indexOf(needle) === -1) {
-    //       return false
-    //     }
-    //   }
-    //   return true
-    // }
-
-    // 参数的默认值
-    function testFunc(one="aaa", two=(one === "aaa" ? "yes" : "no")) {
-      return `this is a ${one} and ${two}`
+    function test(a) {
+      
+      console.log('a'.prototype)
     }
-    console.log(testFunc())
-
-    function func(a=11, b) {
-      // ...
-    }
-    function func(a=11, b=undefined) {
-      // ...
-    }
+    test()
   </script>
 </body>
 

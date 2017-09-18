@@ -152,7 +152,7 @@
     return _.property(value);
   };
 
-  
+
   // External wrapper for our callback generator. Users may customize
   // `_.iteratee` if they want additional predicate/iteratee shorthand styles.
   // This abstraction hides the internal-only argCount argument.
@@ -164,57 +164,79 @@
     return cb(value, context, Infinity);
   };
 
-  
+
   // Similar to ES6's rest param (http://ariya.ofilabs.com/2013/03/es6-and-rest-parameter.html)
   // 类似与ES6的rest参数
   // This accumulates the arguments passed into an array, after a given index.\
   // 把startIndex后面的参数放到一个数组里面, 并作为参数传入fn
   // 函数, 传入一个函数, 和开始的索引, 
+  // 现在理解这个函数就是, 我们把一个函数传进去后, 就可能在后面添加很多很多的参数, 如果地方不够了,那么剩下的多余参数, 就会作为一个数组存在
+  // 这个函数其实就是把我们在形参中没有定义的参数, 都变成一个数组作为最后一个参数传入
   var restArgs = function (func, startIndex) {
+    // 如果没有传入要截取的参数的索引, 就是开始索引, 就是参数的个数-1个,
+    // 例如有五个参数, 那么开始的索引就是4, 这就是最后一个参数.
+    // 如果从第几个索引, 开始截取参数,
+    // 如果传入的是负值, 那就从右往前走.
     startIndex = startIndex == null ? func.length - 1 : +startIndex;
-    // 开始的索引, 如果没有传入, 就是func的长度 - 1 (变成了 -1) 如果传入的话, 保证是个正值  
-    return function () { // 闭包返回函数
-      // 长度是参数的长度, 与传入的开始放入的索引, 最起码是个0, 不能为负数
+    return function () { // 闭包
+      // 获取我们要截取的参数个数, 并保证>=0
+      // 因为这里可能传入了很多很多, 例如传入了15个.
       var length = Math.max(arguments.length - startIndex, 0),
-        // 建立一个长度为我们刚刚好要使用的长度的数组
+        // 我们截取的参数放到这个数组里面
         rest = Array(length),
-        // 索引为0
         index = 0;
-
       for (; index < length; index++) {
-        // 开始所以往后的所有参数, 放入到rest这个数组中
+        // 把这个函数中参数后面要截取的每一个参数放进去.
         rest[index] = arguments[index + startIndex];
       }
-      // 看看我们的开始索引是多少
       switch (startIndex) {
-        case 0: // 表示
+        case 0: // 从第一个开始的, 那么就直接放进去, 第二个参数就是所有的参数的一个数组集合
           return func.call(this, rest);
-        case 1:
+        case 1: // ...
           return func.call(this, arguments[0], rest);
-        case 2:
+        case 2: // ... 
           return func.call(this, arguments[0], arguments[1], rest);
       }
+      // 如果startIndex 大于 2 的话, 
+      // 其实这里就是一个startIndex的值大于2的一种情况
+      // 就在定义一个数组, 比我们截取的开始参数的所以, 再多一个
       var args = Array(startIndex + 1);
       for (index = 0; index < startIndex; index++) {
+        // 每一个参数都放带args中, 一直放到我们要看是截取的参数 索引
         args[index] = arguments[index];
       }
-      args[startIndex] = rest;
+      args[startIndex] = rest; // 从我们要截取的参数索引 开始都放到rest中了
       return func.apply(this, args);
     };
   };
 
   // An internal function for creating a new object that inherits from another.
+  // 其实是Object.create()的一个替代品
+  // 一个内部的函数, 用来创建一个对象, 继承自另外一个对象
+  // 某个对象调用这个方法, 传入它继承自那个对象的prototype.
   var baseCreate = function (prototype) {
+    // 如果prototype不是一个对象, 也就是可能不存在, 
+    // 也就是说, 我们传入的并非是一个来自于构造函数的原型
+    // 那么直接返回一个空对象
     if (!_.isObject(prototype)) return {};
+    // 如果存在我们的原型方法.Object.create的话, 那么就用这个方法
     if (nativeCreate) return nativeCreate(prototype);
+    // 保存原型到一个构造函数上
     Ctor.prototype = prototype;
+    // 利用构造函数新建实例
     var result = new Ctor;
+    // 清空构造函数
     Ctor.prototype = null;
     return result;
   };
 
+  // 浅的原型?
+  // 传入属性名
   var shallowProperty = function (key) {
+    // 返回一个函数, 这个函数需要需要传入一个对象
     return function (obj) {
+      // 没有传入对象, 就返回undefiend, 
+      // 如果返回了, 就返回此对象对应属性名的属性值
       return obj == null ? void 0 : obj[key];
     };
   };
