@@ -11,11 +11,16 @@
 <body>
   <script src="./underscord_1.8.3.js"></script>
   <script>
-    function test(a) {
-      
-      console.log('a'.prototype)
+    var obj = {
+      name : 'zhangsan',
+      age : 11,
+      num : {
+        a: 'aaa',
+        b: 'bbb'
+      }
     }
-    test()
+    var res = _(obj).keys()
+    console.log(res)
   </script>
 </body>
 

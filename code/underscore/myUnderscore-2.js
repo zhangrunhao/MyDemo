@@ -231,16 +231,16 @@
   };
 
   // 浅的原型?
-  // 传入属性名
+  // 如果传入一个属性名, 就会返回一个或者整个属性名对应属性值的方法
   var shallowProperty = function (key) {
     // 返回一个函数, 这个函数需要需要传入一个对象
     return function (obj) {
-      // 没有传入对象, 就返回undefiend, 
-      // 如果返回了, 就返回此对象对应属性名的属性值
+      // 获取对象的对应属性值
       return obj == null ? void 0 : obj[key];
     };
   };
 
+  // todo: 没有看懂的函数, 难道是根据路径, 获取某个对象上面的属性值的?
   var deepGet = function (obj, path) {
     var length = path.length;
     for (var i = 0; i < length; i++) {
@@ -250,47 +250,82 @@
     return length ? obj : void 0;
   };
 
+  
+  // 一些集合(数组/对象/类数组)的帮助方法, 
   // Helper for collection methods to determine whether a collection
   // should be iterated as an array or as an object.
   // Related: http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength
+  // 避免在IOS 8 64G运行环境, 一个非常严重的BUG
   // Avoids a very nasty iOS 8 JIT bug on ARM-64. #2094
+
+  // 这个是在JavaScript中能精确的最大数字, 2的53次方 - 1
   var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+  // 创建一个方法, 用来获取参数的lenth属性值
   var getLength = shallowProperty('length');
+  // 判断是否为类数组类型
+  // 类数组: 有length属性, 并且属性值为Number类型
+  // 并且lenth是个正值
+  // 并且lenth的值小于一个数组索引的最大值
+  // 类数组包括: 
+  // argument, HTML Collection(页面的集合),NodeList(节点集合)
+  // 类似{length: 10}这样的对象
+  // 还有字符串, 函数等 也是类数组.
   var isArrayLike = function (collection) {
     var length = getLength(collection);
     return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
   };
 
+  // 集合(数组/对象)的扩展方法
   // Collection Functions
   // --------------------
 
   // The cornerstone, an `each` implementation, aka `forEach`.
   // Handles raw objects in addition to array-likes. Treats all
   // sparse array-likes as if they were dense.
+  // 传入一个类集合, 一个迭代器, 也就是一个函数, 一个this指向
+  // 不要传入一个带有key类型为number的对象
+  // _.each方法不能用return 跳出循环
   _.each = _.forEach = function (obj, iteratee, context) {
+    // 如果指定了this指向, 就对这个回调函数进行优化.
     iteratee = optimizeCb(iteratee, context);
     var i, length;
-    if (isArrayLike(obj)) {
+    if (isArrayLike(obj)) { // 如果是类数组
+      // 遍历length属性
       for (i = 0, length = obj.length; i < length; i++) {
+        // 回调函数中传入每一项item, 索引, 以及这个对象
         iteratee(obj[i], i, obj);
       }
     } else {
+      // 不是类数组, 获取所有的属性名, 变成一个数组, 只能是第一层
+      // 只能理解往里面传入, obj, 但是不理解为什么_(Obj).keys也可以.
       var keys = _.keys(obj);
       for (i = 0, length = keys.length; i < length; i++) {
+        // 遍历, 每一个属性名对应的属性值
+        // 参数:属性值，　属性名，　对象本身
         iteratee(obj[keys[i]], keys[i], obj);
       }
     }
+    // 支持链式操作.
     return obj;
   };
 
+  // 对集合的每一项应用这个方法, 并把每一项的结果放到数组中, 返回出去
   // Return the results of applying the iteratee to each element.
   _.map = _.collect = function (obj, iteratee, context) {
+    // 回调函数, 只要值回调函数, 对进行一层优化
     iteratee = cb(iteratee, context);
+    // obj 不是一类数组, 然后在求出他们的属性的集合
     var keys = !isArrayLike(obj) && _.keys(obj),
+    // 如果是类数组, 那么length就是obj的长度, 不是的话, 就是keys的长度
       length = (keys || obj).length,
+      // 建立结果需要的数组
       results = Array(length);
+      // 遍历对象中的每一项
     for (var index = 0; index < length; index++) {
+      // 当前索引, 如果是属性名的集合, 那么当前索引就是属性名, 否则就是索引
       var currentKey = keys ? keys[index] : index;
+      // 回调函数的参数: 当前属性名,或索引对应的属性值, 当前索引, 对象
+      // 复制给了一个数组, 这个数组中存着每一项, obj每一项执行回调函数后的结果
       results[index] = iteratee(obj[currentKey], currentKey, obj);
     }
     return results;
