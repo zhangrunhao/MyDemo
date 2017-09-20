@@ -8,19 +8,27 @@ var obj = {
 
 
 
+const items = [10, 20, 30]
+
+const total = items.reduce((sumSoFar, item) => {
+  sumSoFar.sum = sumSoFar.sum + item
+  return sumSoFar
+  
+}, {sum: 15})
+
+console.log(total)
 
 
 
+// // 如果
+// _.each(arr, function (item, index) {
+//   arr[index] = ++item
+//   console.log(index)
+//   console.log(item)
+// }, global)
+// console.log(arr)
 
-// 如果
-_.each(arr, function (item, index) {
-  arr[index] = ++item
-  console.log(index)
-  console.log(item)
-}, global)
-console.log(arr)
-
-console.log(global)
+// console.log(global)
 
 
 

@@ -331,42 +331,66 @@
     return results;
   };
 
+  // 创建一个类似reduce函数, 从左开始计算, 或者从右开始计算
+  // 就是类数组中的每一个元素, 都去执行一个回调函数, 返回的值,  作为回调函数后面的参数, 向后传递
   // Create a reducing function iterating left or right.
   var createReduce = function (dir) {
+    // 需要判断从左边开始计算, 还是从右边开始计算
     // Wrap code that reassigns argument variables in a separate function than
     // the one that accesses `arguments.length` to avoid a perf hit. (#1991)
+    // 实际执行的函数
     var reducer = function (obj, iteratee, memo, initial) {
+      // 如果对象不是类数组, 我们就手机对象中所有的属性名
       var keys = !isArrayLike(obj) && _.keys(obj),
+      // 需要遍历的长度, 
         length = (keys || obj).length,
+      // 初始索引值, 如果是从左计算, 那么就是0, 否则就是最后一个值的索引
         index = dir > 0 ? 0 : length - 1;
-      if (!initial) {
+      if (!initial) { // 没有初始值
+        // 对象的第一项
         memo = obj[keys ? keys[index] : index];
+        // 然后第一项, 或者最后一项不需要计算
         index += dir;
       }
+      // 遍历整个长度, 长度的值必须在 0 - Max之间
       for (; index >= 0 && index < length; index += dir) {
+        // 当前的索引, 要么是索引值, 要么是当前的一个属性名
         var currentKey = keys ? keys[index] : index;
+        // 回调函数的参数: 初始值, 或者计算后返回的值,  当前的元素, 当前的索引, 当前的对象
+        // 这个回调函数, 需要循环到每一个元素都执行过
         memo = iteratee(memo, obj[currentKey], currentKey, obj);
       }
+      // 返回我们最后的计算结果
       return memo;
     };
-
+    // 返回的这个函数, 正是我们的reduce函数, 我们的类数组调用的也正是这个函数
     return function (obj, iteratee, memo, context) {
+      // 确定参数个数大约等于3个的话, 就证明了 我们赋予了初始值
       var initial = arguments.length >= 3;
+      // 返回值的时候, 再去执行reducer这个函数, 这个函数返回什么, 就再向上返回一层
+      // 这里也就能接受到我们最后的计算结果, 再返回出去, 就能得到结果了.
       return reducer(obj, optimizeCb(iteratee, context, 4), memo, initial);
     };
   };
 
+  // 使用列表中的每一个值, 创建一个唯一的结果, 有被称为`inject`, `foldl`
   // **Reduce** builds up a single result from a list of values, aka `inject`,
   // or `foldl`.
   _.reduce = _.foldl = _.inject = createReduce(1);
 
+  // reduce的右边计算版本, 又被称为`foldr`
   // The right-associative version of reduce, also known as `foldr`.
   _.reduceRight = _.foldr = createReduce(-1);
 
+
+  // 返回第一能经过判断条件, 并返回true的值, 又被称为`detect`
   // Return the first value which passes a truth test. Aliased as `detect`.
   _.find = _.detect = function (obj, predicate, context) {
+    // 如果是类数组的话, 就去找索引, 如果是对象的话, 就是就找属性名
     var keyFinder = isArrayLike(obj) ? _.findIndex : _.findKey;
+    // 找到索引, 或者属性名
     var key = keyFinder(obj, predicate, context);
+    // 如果key存在, 并且不为-1, 就返回这个这个属性名, 或者索引对应的值
     if (key !== void 0 && key !== -1) return obj[key];
   };
 
@@ -787,14 +811,23 @@
   };
 
   // Generator function to create the findIndex and findLastIndex functions.
+  // 一个通用的函数, 用来创建, 寻找从头开始寻找, 或者是做最后开始寻找
+  // 这个只能是针对数组
   var createPredicateIndexFinder = function (dir) {
+    // 返回的这个函数, 就是我们将要选择的操作
+    // 参数, 我们要查找的数组, 判定方式, this指向
     return function (array, predicate, context) {
+      // 优化一波回调.
       predicate = cb(predicate, context);
+      // 获取整个数组的长度
       var length = getLength(array);
+      // 看看,我们是从第一个开始找, 还是从最后一个开始找
       var index = dir > 0 ? 0 : length - 1;
       for (; index >= 0 && index < length; index += dir) {
+        // 如果满足了判断条件, 就返回当前的索引值
         if (predicate(array[index], index, array)) return index;
       }
+      // 没有找到
       return -1;
     };
   };
@@ -1236,13 +1269,18 @@
   // (https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
   _.extendOwn = _.assign = createAssigner(_.keys);
 
+  // 从第一个属性名开始找, 返回第一个能够通过判断函数的属性名
   // Returns the first key on an object that passes a predicate test.
+  // 传入, 对象, 判定条件, 当前的this指向
   _.findKey = function (obj, predicate, context) {
     predicate = cb(predicate, context);
+    // 获取整个对象的所有属性名
     var keys = _.keys(obj),
       key;
+      // 判断所有的属性名
     for (var i = 0, length = keys.length; i < length; i++) {
       key = keys[i];
+      // 如果属性名能够通过判断函数, 返回了true, 就返回这个属性名
       if (predicate(obj[key], key, obj)) return key;
     }
   };

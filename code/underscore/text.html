@@ -11,16 +11,12 @@
 <body>
   <script src="./underscord_1.8.3.js"></script>
   <script>
-    var obj = {
-      name : 'zhangsan',
-      age : 11,
-      num : {
-        a: 'aaa',
-        b: 'bbb'
-      }
+    var items = [10, 20, 30]
+    var reducer = function add(sumSoFar, item) {
+      return sumSoFar + item
     }
-    var res = _(obj).keys()
-    console.log(res)
+    var total = items.reduce(reducer, 0)
+    console.log(tatal)
   </script>
 </body>
 
