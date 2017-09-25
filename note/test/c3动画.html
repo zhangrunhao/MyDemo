@@ -7,23 +7,75 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
-    .trans {
-      transition: background-color 3s 0.5s ease;
-      -webkit-transition: background-color 3s 0.5s ease;
-      -moz-transition: background-color 3s 0.5s ease;
-      -o-transition: background-color 3s 0.5s ease;
-      -ms-transition: background-color 3s 0.5s ease;
+    * {
+      margin: 0;
+      padding: 0;
     }
 
-    .trans:hover {
-      background-color: #486AAA;
-      color: #fff;
+    .outer {
+      height: 30px;
+      overflow: hidden;
+      transition: height 1s ease-in-out;
+    }
+    .outer:nth-child(1) {
+      height: 180px;
+    }
+    h3 {
+      height: 30px;
+      background: skyblue;
+    }
+
+    p {
+      height: 150px;
+      background: #aaa;
     }
   </style>
 </head>
 
 <body>
-  <p class="trans">经过出现效果</p>
+  <div class="outer">
+    <h3>1</h3>
+    <p>这是一段文本这是一段文本这是一段文本这是一段文本这是一段文本这是一段文本</p>
+  </div>
+  <div class="outer">
+    <h3>2</h3>
+    <p>这是一段文本这是一段文本这是一段文本这是一段文本这是一段文本这是一段文本</p>
+  </div>
+  <div class="outer">
+    <h3>3</h3>
+    <p>这是一段文本这是一段文本这是一段文本这是一段文本这是一段文本这是一段文本</p>
+  </div>
+  <script>
+    // 获取所有的标题
+    onload = () => {
+      const outerArr = document.querySelectorAll('.outer')
+      const hArr = document.querySelectorAll('h3')
+      // 默认动画没有执行
+      let transing = false
+      Array.prototype.forEach.call(hArr, (element) => {
+        let _this = element
+        element.addEventListener('click', () => {
+          if (transing) return
+          let currentIndex = Number(_this.innerText) - 1
+          // 动画开始执行
+          transing = true
+          Array.prototype.forEach.call(outerArr, (outer, index) => {
+            if (currentIndex === index) {
+              outer.style.height = '180px'
+            } else {
+              outer.style.height = '30px'
+            }
+          })
+        }, false)
+      })
+      Array.prototype.forEach.call(outerArr, (outer, index) => {
+        // 动画执行结束
+        outer.addEventListener('transitionend', () => {
+          transing = false
+        })
+      })
+    }
+  </script>
 </body>
 
 </html>
