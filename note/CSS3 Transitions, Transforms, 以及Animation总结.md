@@ -61,4 +61,14 @@
   </style>
 ```
 
-### 
+### `transition-timing-function`详解
+* `linear`: 线性变换, 始终如一
+* `ease-in`: 进去的时候, 先慢后快
+* `ease-out`: 出来的时候, 先快后慢
+* `ease-in-out`: 完整过程, 先慢, 再快, 再慢
+* `cubic-bezier`: 贝塞尔曲线, 这就牛逼了
+
+
+## Transform总结
+> `transform`指变换
+> 
