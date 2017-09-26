@@ -396,17 +396,23 @@
 
   // Return all the elements that pass a truth test.
   // Aliased as `select`.
+  // 然后所有执行回调函数后, 将所有结果为true的值变成一个新数组进行返回,
   _.filter = _.select = function (obj, predicate, context) {
     var results = [];
+    // 优化回调函数
     predicate = cb(predicate, context);
+    // 遍历每一个项
     _.each(obj, function (value, index, list) {
+      // 然后看看执行完整个函数的返回值是什么, 如果是ture, 的话, 就把整个值放到返回的数组中
       if (predicate(value, index, list)) results.push(value);
     });
-    return results;
+    return results; 
   };
 
   // Return all the elements for which a truth test fails.
+  // 这个方法可以针对原来的predicate取个补集
   _.reject = function (obj, predicate, context) {
+    // 因为在_.filter中是需要看返回值的, 所以我们在_negate中改变了返回值的结果即可.
     return _.filter(obj, _.negate(cb(predicate)), context);
   };
 
@@ -414,12 +420,16 @@
   // Aliased as `all`.
   _.every = _.all = function (obj, predicate, context) {
     predicate = cb(predicate, context);
+    // 如果是类数组, 就取索引, 如果是对象, 就取属性名的集合
     var keys = !isArrayLike(obj) && _.keys(obj),
       length = (keys || obj).length;
+      // 遍历
     for (var index = 0; index < length; index++) {
       var currentKey = keys ? keys[index] : index;
+      // 如果有一项经过回调函数返回的不是真值, 就返回false
       if (!predicate(obj[currentKey], currentKey, obj)) return false;
     }
+    // 如果每一项都能返回true, 就返回true
     return true;
   };
 
@@ -431,6 +441,7 @@
       length = (keys || obj).length;
     for (var index = 0; index < length; index++) {
       var currentKey = keys ? keys[index] : index;
+      // 如果有一个值能通过真值检测就返回true
       if (predicate(obj[currentKey], currentKey, obj)) return true;
     }
     return false;
@@ -1091,6 +1102,11 @@
   // Returns a negated version of the passed-in predicate.
   _.negate = function (predicate) {
     return function () {
+      // 返回回到函数的一个对立方法
+      // 如果只是一个!就会, 取反, 并且返回的就是一定是Boolear值
+      // 但还是不明白这样做的意义.
+      // 这样做, 可以形成一个filter的补集, 一个返回执行后为true的值
+      // 一个返回执行后为false的值
       return !predicate.apply(this, arguments);
     };
   };
