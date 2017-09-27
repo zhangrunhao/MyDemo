@@ -250,7 +250,7 @@
     return length ? obj : void 0;
   };
 
-  
+
   // 一些集合(数组/对象/类数组)的帮助方法, 
   // Helper for collection methods to determine whether a collection
   // should be iterated as an array or as an object.
@@ -316,11 +316,11 @@
     iteratee = cb(iteratee, context);
     // obj 不是一类数组, 然后在求出他们的属性的集合
     var keys = !isArrayLike(obj) && _.keys(obj),
-    // 如果是类数组, 那么length就是obj的长度, 不是的话, 就是keys的长度
+      // 如果是类数组, 那么length就是obj的长度, 不是的话, 就是keys的长度
       length = (keys || obj).length,
       // 建立结果需要的数组
       results = Array(length);
-      // 遍历对象中的每一项
+    // 遍历对象中的每一项
     for (var index = 0; index < length; index++) {
       // 当前索引, 如果是属性名的集合, 那么当前索引就是属性名, 否则就是索引
       var currentKey = keys ? keys[index] : index;
@@ -342,9 +342,9 @@
     var reducer = function (obj, iteratee, memo, initial) {
       // 如果对象不是类数组, 我们就手机对象中所有的属性名
       var keys = !isArrayLike(obj) && _.keys(obj),
-      // 需要遍历的长度, 
+        // 需要遍历的长度, 
         length = (keys || obj).length,
-      // 初始索引值, 如果是从左计算, 那么就是0, 否则就是最后一个值的索引
+        // 初始索引值, 如果是从左计算, 那么就是0, 否则就是最后一个值的索引
         index = dir > 0 ? 0 : length - 1;
       if (!initial) { // 没有初始值
         // 对象的第一项
@@ -406,7 +406,7 @@
       // 然后看看执行完整个函数的返回值是什么, 如果是ture, 的话, 就把整个值放到返回的数组中
       if (predicate(value, index, list)) results.push(value);
     });
-    return results; 
+    return results;
   };
 
   // Return all the elements for which a truth test fails.
@@ -423,7 +423,7 @@
     // 如果是类数组, 就取索引, 如果是对象, 就取属性名的集合
     var keys = !isArrayLike(obj) && _.keys(obj),
       length = (keys || obj).length;
-      // 遍历
+    // 遍历
     for (var index = 0; index < length; index++) {
       var currentKey = keys ? keys[index] : index;
       // 如果有一项经过回调函数返回的不是真值, 就返回false
@@ -448,10 +448,16 @@
   };
 
   // Determine if the array or object contains a given item (using `===`).
+  // 判断一个数组中, 是否包含一个给定的元素.
   // Aliased as `includes` and `include`.
+  // 看看传入的类数组中是否包含有我们需要判断的值, 如果有这个值, 就返回true
   _.contains = _.includes = _.include = function (obj, item, fromIndex, guard) {
+    //  如果传入的不是数组, 就把这个对象的所有的属性值都获取起来
     if (!isArrayLike(obj)) obj = _.values(obj);
+    // 如果没有传入开始索引, 就从第一元素开始判断.  
+    // 如果传入了开始索引, 为什么还要用一个guard, 也就是参数传多了, 也从第一个索引开始.
     if (typeof fromIndex != 'number' || guard) fromIndex = 0;
+    //  
     return _.indexOf(obj, item, fromIndex) >= 0;
   };
 
@@ -849,13 +855,27 @@
 
   // Use a comparator function to figure out the smallest index at which
   // an object should be inserted so as to maintain order. Uses binary search.
+  // 使用二分法进行排序, 查找obj, 在这个arr中的位置, obj, 可以是对象, 也可以是单一类型 
   _.sortedIndex = function (array, obj, iteratee, context) {
+    // 优化回调函数
+    // 当我们吧这个值传入的时候, 经过一系列的判断, 最后得到一个函数
+    // 这个函数需要传入一个对象, 然后可以判断出这个对象是否是否具有我们这个属性
     iteratee = cb(iteratee, context, 1);
+    // iteratee, 是当我们传入的是obj是对象, 那么就需要根据某个属性名称排序, iteratee就是属性名
+    // 属性名对应的属性值
+    // 传入单值的话, 就判断这个对象是否具有这个属性
+    // 有的话, 就返回这个对象对应的属性值, 没有的话就返回undefiend
+    // 如果只有一个单值的话, 就传入什么返回什么, 此时的iteratee = _.identity
     var value = iteratee(obj);
+    // 我们需要的结果
     var low = 0,
+      // 数组的最大长度
       high = getLength(array);
-    while (low < high) {
+    while (low < high) { // 遍历, 如果我们的遍历结果, 还在这个数组之间
+      // 第一次就是求得当前的一半, 因为low是0
+      // 求得对应的一个索引
       var mid = Math.floor((low + high) / 2);
+      // 
       if (iteratee(array[mid]) < value) low = mid + 1;
       else high = mid;
     }
@@ -1293,7 +1313,7 @@
     // 获取整个对象的所有属性名
     var keys = _.keys(obj),
       key;
-      // 判断所有的属性名
+    // 判断所有的属性名
     for (var i = 0, length = keys.length; i < length; i++) {
       key = keys[i];
       // 如果属性名能够通过判断函数, 返回了true, 就返回这个属性名

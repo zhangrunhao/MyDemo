@@ -11,10 +11,23 @@
 <body>
   <script src="./underscord_1.8.3.js"></script>
   <script>
-    var items = [10, 20, 30]
-    _.reject(items, () => {
-      
-    })
+    function testFun(array, value) {
+      var low = 0
+      var heigh = arr.length
+      while (low < heigh) {
+        var mid = Math.floor((low + heigh) / 2)
+        if (array[mid] < value) {
+          low = mid + 1
+        } else {
+          heigh = mid
+        }
+      }
+      return low
+    }
+
+    var arr = [3, 11, 8, 15, 12, 9]
+    var res = testFun(arr, 7)
+    console.log(res)
   </script>
 </body>
 
