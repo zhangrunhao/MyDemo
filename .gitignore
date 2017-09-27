@@ -1,4 +1,5 @@
 work/VID_20170904_170006.3gp
-*.node_modules
+*/node_modules
 node/node_modules
 node_modules
+*/preview/*
