@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <style type="text/css">
+    .myDiv {
+      width: 600px;
+      height: 400px;
+      margin: 20px auto;
+      background-size: cover;
+      background-position: center;
+      -webkit-animation-name: 'loop';
+      -webkit-animation-duration: 5s;
+      -webkit-animation-iteration-count: infinite;
+      border: 2px solid #aaa;
+    }
+
+    @-webkit-keyframes loop {
+      0% {
+        background: url('./test.jpg') no-repeat
+      }
+      50% {
+        background: url('./yuanjihuasy.png') no-repeat
+      }
+      100% {
+        background: url('./header.jpg') no-repeat
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="myDiv"></div>
+</body>
+
+</html>

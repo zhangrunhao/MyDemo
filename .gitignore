@@ -3,3 +3,60 @@ work/VID_20170904_170006.3gp
 node/node_modules
 node_modules
 */preview/*
+
+
+# react-native-demo 项目需要忽略文件
+
+# OSX
+#
+react-native-demo/AwessomeProject/.DS_Store
+
+# Xcode
+#
+react-native-demo/AwessomeProject/build/
+react-native-demo/AwessomeProject/*.pbxuser
+!default.pbxuser
+react-native-demo/AwessomeProject/*.mode1v3
+react-native-demo/AwessomeProject/!default.mode1v3
+react-native-demo/AwessomeProject/*.mode2v3
+react-native-demo/AwessomeProject/!default.mode2v3
+react-native-demo/AwessomeProject/*.perspectivev3
+react-native-demo/AwessomeProject/!default.perspectivev3
+react-native-demo/AwessomeProject/xcuserdata
+react-native-demo/AwessomeProject/*.xccheckout
+react-native-demo/AwessomeProject/*.moved-aside
+react-native-demo/AwessomeProject/DerivedData
+react-native-demo/AwessomeProject/*.hmap
+react-native-demo/AwessomeProject/*.ipa
+react-native-demo/AwessomeProject/*.xcuserstate
+react-native-demo/AwessomeProject/project.xcworkspace
+
+# Android/IntelliJ
+#
+react-native-demo/AwessomeProject/build/
+react-native-demo/AwessomeProject/.idea
+react-native-demo/AwessomeProject/.gradle
+react-native-demo/AwessomeProject/local.properties
+react-native-demo/AwessomeProject/*.iml
+
+# node.js
+#
+react-native-demo/AwessomeProject/node_modules/
+react-native-demo/AwessomeProject/npm-debug.log
+react-native-demo/AwessomeProject/yarn-error.log
+
+# BUCK
+react-native-demo/AwessomeProject/buck-out/
+react-native-demo/AwessomeProject/\.buckd/
+react-native-demo/AwessomeProject/*.keystore
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
+
+react-native-demo/AwessomeProject/fastlane/report.xml
+react-native-demo/AwessomeProject/fastlane/Preview.html
+react-native-demo/AwessomeProject/fastlane/screenshots
