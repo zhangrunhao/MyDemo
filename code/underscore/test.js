@@ -1,22 +1,31 @@
 var _ = require('./underscord_1.8.3')
 
-var arr = [1, 2, 3]
-var obj = {
-  name: 'zhang',
-  age: 24
-}
+
+var arr = [10, 20, 30, 40, 50]
+
+var res = _.sortedIndex(arr, 35)
+console.log(res)
 
 
 
-const items = [10, 20, 30]
 
-const total = items.reduce((sumSoFar, item) => {
-  sumSoFar.sum = sumSoFar.sum + item
-  return sumSoFar
-  
-}, {sum: 15})
+// var arr = [1, 2, 3]
+// var obj = {
+//   name: 'zhang',
+//   age: 24
+// }
 
-console.log(total)
+
+
+// const items = [10, 20, 30]
+
+// const total = items.reduce((sumSoFar, item) => {
+//   sumSoFar.sum = sumSoFar.sum + item
+//   return sumSoFar
+
+// }, {sum: 15})
+
+// console.log(total)
 
 
 
