@@ -1,10 +1,18 @@
 var _ = require('./underscord_1.8.3')
 
 
-var arr = [10, 20, 30, 40, 50]
 
-var res = _.sortedIndex(arr, 35)
-console.log(res)
+
+
+
+
+var arr = [50, 40, 30, 20, 10]
+
+// var res = _.sortedIndex(arr, 35, (item) => {
+  
+// }) // res = 0
+
+var res = _.sortedIndex(arr, 35) // res = 5
 
 
 

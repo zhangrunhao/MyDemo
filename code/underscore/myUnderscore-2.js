@@ -241,6 +241,9 @@
   };
 
   // todo: 没有看懂的函数, 难道是根据路径, 获取某个对象上面的属性值的?
+  // 应该是传入, 对象, 再传入一个属性名, 返回属性值.
+  // 例如传入了一个 {name: 'moe'} , 'name'
+  // 
   var deepGet = function (obj, path) {
     var length = path.length;
     for (var i = 0; i < length; i++) {
@@ -484,6 +487,7 @@
   });
 
   // Convenience version of a common use case of `map`: fetching a property.
+  // 
   _.pluck = function (obj, key) {
     return _.map(obj, _.property(key));
   };
@@ -855,29 +859,31 @@
 
   // Use a comparator function to figure out the smallest index at which
   // an object should be inserted so as to maintain order. Uses binary search.
-  // 使用二分法进行排序, 查找obj, 在这个arr中的位置, obj, 可以是对象, 也可以是单一类型 
+  // 二分法求值始终未能理解.
+  //    1. : 迭代函数在其中发挥的作用不明白.
+  //    2. : 数组的排序能否充大到小排序, 如果从大到小, 为何添加一个没有方法体的函数, 结果会取反, 详见test.js
+  //    3. : 
   _.sortedIndex = function (array, obj, iteratee, context) {
-    // 优化回调函数
-    // 当我们吧这个值传入的时候, 经过一系列的判断, 最后得到一个函数
-    // 这个函数需要传入一个对象, 然后可以判断出这个对象是否是否具有我们这个属性
+    // cb方法
+    // iteratee为空时, 返回的函数为 出入什么返回什么.
+    // 如果为String时, 返回一个查找对象中这个属性值的方法.
+    // 如果是一个函数的话, 就对这个函数进行优化
     iteratee = cb(iteratee, context, 1);
-    // iteratee, 是当我们传入的是obj是对象, 那么就需要根据某个属性名称排序, iteratee就是属性名
-    // 属性名对应的属性值
-    // 传入单值的话, 就判断这个对象是否具有这个属性
-    // 有的话, 就返回这个对象对应的属性值, 没有的话就返回undefiend
-    // 如果只有一个单值的话, 就传入什么返回什么, 此时的iteratee = _.identity
+
     var value = iteratee(obj);
     // 我们需要的结果
-    var low = 0,
-      // 数组的最大长度
-      high = getLength(array);
-    while (low < high) { // 遍历, 如果我们的遍历结果, 还在这个数组之间
-      // 第一次就是求得当前的一半, 因为low是0
-      // 求得对应的一个索引
+    var low = 0
+    // 数组的最大长度
+    var high = getLength(array);
+
+    // 使用二分法进行查找
+    while (low < high) {
       var mid = Math.floor((low + high) / 2);
-      // 
-      if (iteratee(array[mid]) < value) low = mid + 1;
-      else high = mid;
+      if (iteratee(array[mid]) < value) {
+        low = mid + 1;
+      } else {
+        high = mid;
+      }
     }
     return low;
   };
@@ -1631,7 +1637,9 @@
 
   _.noop = function () {};
 
+  // 传入一个函数, 这个函数返回传入的对象的 `key`属性
   _.property = function (path) {
+    // 如果path是数组的话
     if (!_.isArray(path)) {
       return shallowProperty(path);
     }
