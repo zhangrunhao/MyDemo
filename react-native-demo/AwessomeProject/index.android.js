@@ -1,31 +1,37 @@
-// 初始化图片, 并将参数传入 import React, {Component} from 'react'; import {AppRegistry,
-// Image} from 'react-native' // 其实myApp是一个构造函数, 我们直接在注册时候, 返回这个构造函数 class
-// myImageApp extends Component {   render() {     let pic = {       uri:
-// 'http://img1.imgtn.bdimg.com/it/u=2530029311,2910169656&fm=27&gp=0.jpg'     }
-//     return (<Image source={pic} style={{       width: 193,       height: 110
-//    }}/>)   } } // 注册组件 AppRegistry.registerComponent('AwessomeProject', () =>
-// myImageApp)
+// 创建引入组件
+import React, {Component} from 'react';
+import {AppRegistry, Image} from 'react-native';
 
-import React, { Component } from 'react'; 
-import { AppRegistry,Image,Text } from 'react-native'; 
-// console.ignoredYellowBox = ['Remote debugger']
-class Bananas extends Component {   
-  render() {
+class Bananas extends Component {
+  render () {
+    let pic = {
+      uri: 'https://img6.bdstatic.com/img/image/public/yuanjihuasy.png'
+    };
     return (
-      <Image 
-        source={{uri: 'https://img6.bdstatic.com/img/image/public/yuanjihuasy.png'}} 
-        style={{width: 400, height: 400}}
-        // onLoadStart={() => {console.log('loadStart')}}
-        // onLoad={() => {console.log('load')}}
-        // onLoadEnd={() => {console.log('LoadEnd')}}
-        onError={(err) => {console.log(err)}}
-      />
-      // <Image source={require('./images/03.jpg')}/>
-      // <Text>这里是显示一段文本</Text>
+      <Image source={pic} style={{width: 193, height: 110}} />
     );
   }
 }
+
 AppRegistry.registerComponent('AwessomeProject', () => Bananas);
+
+
+
+// import React, { Component } from 'react';
+// import { AppRegistry, Image } from 'react-native';
+
+// class Bananas extends Component {
+//   render() {
+//     let pic = {
+//       uri: 'https://img6.bdstatic.com/img/image/public/yuanjihuasy.png'
+//     };
+//     return (
+//       <Image source={pic} style={{width: 193, height: 110}} />
+//     );
+//   }
+// }
+
+// AppRegistry.registerComponent('AwessomeProject', () => Bananas);
 
 
 
