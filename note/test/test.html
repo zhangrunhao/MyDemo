@@ -55,16 +55,19 @@
     other div
   </div>
   <script>
-    var btn = document.getElementById('btn')
-    if (btn.addEventListener) {
-      btn.addEventListener('click', function () {
-        alert('成功')
-      }, false)
-    } else {
-      btn.attachEvent('onclick', function () {
-        alert('成功')
-      })
-    }
+
+   let arr = [...document.querySelectorAll('li')]
+   console.log(arr) //[li.spc, li.spc.sss, li, li, li.spc, li.spc, li]
+    // var btn = document.getElementById('btn')
+    // if (btn.addEventListener) {
+    //   btn.addEventListener('click', function () {
+    //     alert('成功')
+    //   }, false)
+    // } else {
+    //   btn.attachEvent('onclick', function () {
+    //     alert('成功')
+    //   })
+    // }
     // btn.onclick = function () {
     //   alert('成功')
     // }
