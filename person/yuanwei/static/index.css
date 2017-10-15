@@ -1,0 +1,112 @@
+
+/* 小屏幕（平板，大于等于 768px） */
+@media (min-width: 768px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* 中等屏幕（桌面显示器，大于等于 992px） */
+@media (min-width: 992px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* 大屏幕（大桌面显示器，大于等于 1200px） */
+@media (min-width: 1200px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+.banner .download {
+  position: absolute;
+  top: 0;
+  right: 6.3%;
+  /* background: rgba(135, 0, 0, 0.5); */
+  display: inline-block;
+  width: 8%;
+  height: 3.75rem;
+  transition: all 1s;
+}
+.banner .download:hover {
+  cursor: pointer;
+}
+
+
+/* public start */
+body {
+  background: #eff1e6;
+  color: #000;
+  margin-bottom: 4rem;
+}
+.title {
+  padding: 5rem 0 3rem 0;
+}
+.title_name {
+  font-size: 2.5rem;
+}
+
+.title_line {
+  width: 10rem;
+  height: 2px;
+  background: #000;
+  border: none;
+  margin: 0 auto;
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.title_info {
+  font-size: 1.4rem;
+  line-height: 2.5rem;
+}
+
+@media (max-width: 992px) {
+  .title_info {
+    padding: 0 20px;
+  }
+}
+/* public end */
+
+.tiyan img {
+  margin-bottom: 1rem;
+}
+
+
+.story img {
+  margin-bottom: 1.5rem;
+}
+
+.true div {
+  height: 18rem;
+}
+
+.true img{
+  display: block;
+  margin: 0 auto;
+  width: 18rem;
+  height: 18rem;
+}
+
+@media (max-width: 992px) {
+  .true div {
+    height: 12rem;
+  }
+  .true img{
+    width: 12rem;
+    height: 12rem;
+  }
+}
+
+.baozheng-img {
+  display: block;
+  margin: 0 auto;
+  width: 93%;
+}
+@media (max-width: 992px) {
+  .baozheng-img {
+    width: 100%
+  }
+}
