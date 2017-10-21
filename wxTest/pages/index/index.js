@@ -3,10 +3,15 @@
 const app = getApp()
 
 Page({
+  // 页面中的数据
   data: {
+    // 显示的信息
     motto: 'Hello World',
+    // 用户信息
     userInfo: {},
+    // 是否获取用户信心标志位
     hasUserInfo: false,
+    // 
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数

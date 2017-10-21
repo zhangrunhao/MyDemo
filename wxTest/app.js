@@ -1,5 +1,6 @@
 //app.js
 App({
+  // onLaunch: 初始化函数: 监听小程序的初始化
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -34,6 +35,7 @@ App({
     })
   },
   globalData: {
+    // 全局数据: 用户信息
     userInfo: null
   }
 })

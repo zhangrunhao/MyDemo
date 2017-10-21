@@ -1,3 +1,5 @@
+// 工具函数: 加载日期, 提供一个格式化的日期
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
