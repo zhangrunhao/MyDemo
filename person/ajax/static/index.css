@@ -1,0 +1,32 @@
+body {
+  background: rgb(53, 53, 53);
+}
+
+.main {
+  position: relative;
+  background: #fff;
+  width: 80%;
+  margin: 50px auto;
+  padding: 0 0 25px 15px;
+  border-top: 5px solid rgb(91, 220, 91);
+}
+.main .title{}
+.main .desc{}
+.main .context{
+  width: 80%;
+  height: 35px;
+  padding: 0 0 0 15px;
+}
+.main .fa {
+  position: absolute;
+  right: 19%;
+  top: 70%;
+  width: 10px;
+  height: 10px;
+}
+.main .resBox {
+  width: 53%;
+}
+.main .resBox .resItem:hover {
+  background: skyblue;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./static/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./static/index.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class="main" id="app">
+    <h2 class="title">HTML元素列表(使用AJAX加载)</h2> 
+    <p class="desc">选择一个元素</p>
+    <input  class="context" type="text" v-model="message">
+    <i class="fa fa-caret-down" v-show="message"></i>
+    <ul class="resBox">
+      <li class="resItem">{{resData}}</li>
+    </ul>
+  </div>
+  <script src="./static/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./static/mock.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+          // 输入框的值
+          message: '',
+          // 返回的结果
+          // 这里应该是一个数组 循环到li标签上面...
+          resData: ''
+        }
+      },
+      created () {
+        this.url = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/4621/html-elements.json'
+        Mock.mock(this.url, 'post', Mock.Random.string( 5 ))
+      },
+      watch: {
+        // 监听输入框的变换
+        message(newValue) {
+          axios.post(this.url,{}).then((res) => {
+            // console.log(res)
+            if (res.status === 200 && res.statusText === 'OK') {
+              // console.log(res.data)
+              this.resData = res.data
+            }
+          }).catch((err) => {
+            console.log(err)
+          })
+        }
+      }
+    })
+  </script>
+</body>
+</html>
