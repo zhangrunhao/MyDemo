@@ -1,0 +1,23 @@
+<view class="body">
+  <!-- 每日必看部分 -->
+  <view class="everyday">
+    <view class="title">
+      <view class="icon_eye">
+        <image src="iconUrl"/>
+      </view>
+      <text>每日必看</text>
+    </view>
+    <scroll-view> 
+      <view></view>
+      <view></view>
+      <view></view>
+    </scroll-view>
+  </view>
+
+  <!-- 内容导航 -->
+  <scroll-view class="contentBar"></scroll-view>
+
+  <!-- 内容 -->
+  <view class="main"></view>
+
+</view>

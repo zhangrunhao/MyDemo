@@ -1,0 +1,19 @@
+.everyday {
+  height: 670rpx;
+  background-color: skyblue;
+  padding: 0 0 0 42rpx;
+}
+
+.everyday .title{
+  background-color: salmon;
+  height: 138rpx;
+}
+.everyday .title .icon_eye{
+}
+.everyday .title .icon_eye image {
+
+}
+.everyday .title text{
+  height: 138rpx;
+  line-height: 138rpx;
+}

@@ -11,9 +11,8 @@
   margin: 20rpx;
   border-radius: 50%;
 }
-
 .userinfo-nickname {
-  color: #aaa;
+  color: red;
 }
 
 .usermotto {

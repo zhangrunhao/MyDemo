@@ -19,8 +19,14 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       
     </block>
+
   </view>
-  <view class="usermotto">
+  <!-- <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
+  </view> -->
+
+  <view>
+    <button bindtap="goHomePage">Home页面</button>
+    <button bindtap="goChatPage">Chat页面</button>
   </view>
 </view>

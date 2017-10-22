@@ -20,6 +20,14 @@ Page({
       url: '../logs/logs'
     })
   },
+  goHomePage(){
+    wx.navigateTo({
+      url: '../home/home'
+    })
+  },
+  goChatPage() {
+    console.log('goChagePage')
+  },
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
