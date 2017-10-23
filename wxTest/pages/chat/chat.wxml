@@ -1,0 +1,13 @@
+<view class="body">
+  <!-- 标题 -->
+  <view class="title">感情深 套路真</view>
+  <!-- 聊天内容 -->
+  <view class="chatContent">
+    <!-- 左边样式 -->
+    <view class="chat-left"></view>
+    <!-- 右边样式 -->
+    <view class="chat-right"></view>
+  </view>
+  <!-- 点击提示 -->
+  <view></view>
+</view>

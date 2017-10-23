@@ -1,0 +1,6 @@
+.title {
+  height: 190rpx;
+  text-align: center;
+  line-height: 190rpx;
+  color: #888;
+}
