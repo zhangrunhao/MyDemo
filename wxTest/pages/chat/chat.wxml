@@ -1,13 +1,41 @@
-<view class="body">
-  <!-- 标题 -->
-  <view class="title">感情深 套路真</view>
+<view class="body-chat" bindtap="bindTapView">
+
   <!-- 聊天内容 -->
-  <view class="chatContent">
-    <!-- 左边样式 -->
-    <view class="chat-left"></view>
-    <!-- 右边样式 -->
-    <view class="chat-right"></view>
-  </view>
+  <scroll-view 
+  class="chat" 
+  scroll-y="true" 
+  style="white-space: nowrap"
+  scroll-into-view="{{chatTarget}}"
+  scroll-with-animation="true"
+  >
+
+    <!-- 标题 -->
+    <view class="title">关于Mester</view>
+
+    <!-- 每一条信息 -->
+    <view 
+    class="chat-item chat-{{item.user === 'master' ? 'right' : 'left'}} clearfix" 
+    wx:for="{{chatItems}}" 
+    wx:key="{{index}}"
+    id="chartItem{{index}}"
+    >
+      <view class="user-name">{{item.name}}</view>
+      <view class="user-header">
+        <image src="{{item.header}}" />
+      </view>
+      <view class="content">{{item.content}}</view>
+    </view>
+
+  </scroll-view>
+
   <!-- 点击提示 -->
-  <view></view>
+  <view catchtap="bindTapView" class="prompt" wx:if="{{tapCont===0}}">
+    <image src="http://oy3ywgz62.bkt.clouddn.com/jige/click.png"></image>
+  </view>
+
+  <!-- 播放结束提示 -->
+  <view class="content-end" style="height:{{endDomeHeight}}">
+    播放结束
+  </view>
+  
 </view>

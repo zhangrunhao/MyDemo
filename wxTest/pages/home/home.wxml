@@ -17,13 +17,13 @@
   <!-- 内容导航 -->
   <view class="content-bar-outer">
     <scroll-view class="content-bar" scroll-x="true" style="white-space: nowrap">
-      <view class="box native">鸡哥推荐</view>
-      <view class="box">恐怖快爽</view>
-      <view class="box">微眈快爽</view>
-      <view class="box">爱情快爽</view>
-      <view class="box">连载快爽</view>
-      <view class="box">连载快爽</view>
-      <view class="box">连载快爽</view>
+      <view 
+      wx:for="{{contentBar}}" 
+      wx:key="index" 
+      class="box {{index === contentBarIndexNative ? 'native' : null}}"
+      bindtap="bindtapContentBar"
+      id="{{index}}"
+      >{{item}}</view>
     </scroll-view>
   </view>
 

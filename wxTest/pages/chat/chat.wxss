@@ -1,6 +1,101 @@
-.title {
-  height: 190rpx;
-  text-align: center;
-  line-height: 190rpx;
+/* @import "../../style/font-awesome.min.css"; */
+
+.body-chat {
+  height: 1200rpx;
+}
+
+/* 对话框 start */
+.chat {
+  height: 950rpx;
+  transition: all 3s;
+}
+.chat .title {
   color: #888;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+}
+.chat::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.chat .chat-item {
+  padding: 25rpx 0;
+  position: relative;
+  margin: 0 25rpx 30rpx 25rpx;
+}
+.chat .user-name {
+  position: absolute;
+  top: -10rpx;
+  font-size: 24rpx;
+}
+.chat .user-header {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.chat .user-header image {
+  width: 60rpx;
+  height: 60rpx;
+}
+.chat .content {
+  font-size: 30rpx;
+  min-width: 100rpx;
+  max-width: 350rpx;
+  min-height: 65rpx;
+  border-radius: 25rpx;
+  display: inline-block;
+  white-space: normal;
+  padding: 20rpx 20rpx 15rpx 25rpx;
+}
+
+.chat .chat-left .user-name {
+  left: 70rpx;
+}
+.chat .chat-left .user-header {
+  left: 0;
+}
+.chat .chat-left .content {
+  background-color: #e5e5e5;
+  margin: 0 0 0 80rpx;
+}
+
+.chat .chat-right .user-name {
+  right: 70rpx;
+}
+.chat .chat-right .user-header {
+  right: 0;
+}
+.chat .chat-right .content {
+  background-color: #a0e75a;
+  margin: 0 80rpx 0 0;
+  float: right;
+}
+
+/* 对话框 end */
+
+
+.prompt {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 200rpx;
+  text-align: center;
+  line-height: 100rpx;
+  background-color: darkcyan;
+}
+.prompt image {
+  width: 100%;
+  height: 230rpx;
+}
+
+.content-end {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  transition: all 1s;
 }

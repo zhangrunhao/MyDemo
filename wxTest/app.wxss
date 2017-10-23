@@ -8,7 +8,29 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } */
-
-.body {
+page {
   background-color: #f0f0f0;
+}
+
+/* .clearfix:after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  clear: both;
+  visibility: hidden;
+  overflow: hidden;
+  display: block;
+}
+
+.clearfix {
+  zoom: 1;
+} */
+
+.clearfix::after, .clearfix::before {
+  content: '';
+  display: block;
+  clear: both;
+}
+.clearfix{
+  zoom: 1;
 }

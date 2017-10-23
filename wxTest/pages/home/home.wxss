@@ -1,7 +1,7 @@
 /* 每日必看 start */
 
 .everyday {
-  height: 670rpx;
+  height: 600rpx;
   padding: 0 0 0 42rpx;
   background-color: #fff;
 }
@@ -14,18 +14,19 @@
 .everyday .title .icon_eye {
   position: absolute;
   top: 50%;
-  margin-top: -21rpx;
+  margin-top: -26rpx;
 }
 
 .everyday .title .icon_eye image {
-  width: 42rpx;
-  height: 42rpx;
+  width: 30rpx;
+  height: 30rpx;
 }
 
 .everyday .title text {
-  margin-left: 55rpx;
+  margin-left: 40rpx;
   height: 138rpx;
   line-height: 138rpx;
+  font-size: 24rpx;
 }
 
 .everyday .everyday-sroll .everyday-sroll-box{
@@ -33,8 +34,8 @@
   display: inline-block;
 }
 .everyday .everyday-sroll .everyday-sroll-box .everyday-content{
-  width: 303rpx;
-  height: 505rpx;
+  width: 280rpx;
+  height: 400rpx;
 }
 
 /* 每日必看 end */
@@ -43,20 +44,19 @@
 .content-bar-outer {
   padding: 0 0 0 40rpx;
   margin: 27rpx 0;
-  height: 130rpx;
+  height: 100rpx;
   border-bottom: 3rpx solid #e5e5e5;
   background-color: #fff;
 }
-.content-bar {
-  /* height: 130rpx; */
-}
+
 .content-bar .box {
   display: inline-block;
-  width: 207rpx;
-  height: 120rpx;
-  line-height: 120rpx;
+  width: 140rpx;
+  height: 90rpx;
+  line-height: 90rpx;
   text-align: center;
   margin: 0 30rpx 0 0;
+  font-size: 30rpx;
 }
 .content-bar .native {
   color: #fe7b5d;
