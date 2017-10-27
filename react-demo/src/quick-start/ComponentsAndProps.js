@@ -5,3 +5,5 @@ class Element extends React.Component {
     return <h1>Hello, {this.props.name}</h1>
   }
 }
+
+export default Element

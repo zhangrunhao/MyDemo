@@ -9,6 +9,6 @@ import ComponentsAndProps from './quick-start/ComponentsAndProps'
 
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<ComponentsAndProps />, document.getElementById('root'));
+ReactDOM.render(<ComponentsAndProps name="zhang"/>, document.getElementById('root'));
 
 registerServiceWorker();
