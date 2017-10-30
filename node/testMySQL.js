@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '1111',
     database: 'my_db'
-})
+})  
 
 // 连接数据库
 connection.connect(function(err) {
@@ -17,7 +17,7 @@ connection.connect(function(err) {
 })
 
 // 执行查询语句
-connection.query('select * from user', function(err, rows, fields) {
+connection.query('select * fro m user', function(err, rows, fields) {
     if (err) throw err;
     console.log(rows);
 })
