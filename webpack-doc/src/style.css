@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'MyFont';
+    src: url('./Cabin-Bold.ttf') format('ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+.hello {
+    font-family: 'MyFont';
+    color: black;
+    /* background: url('./icon.png'); */
+}
