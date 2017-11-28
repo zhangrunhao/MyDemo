@@ -11,6 +11,7 @@
   "author": "zhangrh",
   "license": "ISC",
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.7",
     "csv-loader": "^2.1.1",
     "file-loader": "^1.1.5",
