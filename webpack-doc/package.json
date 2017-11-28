@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --config webpack.config.js"
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open",
+    "server": "node server.js",
+    "build": "webpack"
   },
   "author": "zhangrh",
   "license": "ISC",
@@ -14,10 +16,13 @@
     "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.7",
     "csv-loader": "^2.1.1",
+    "express": "^4.16.2",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
     "style-loader": "^0.19.0",
     "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.2",
+    "webpack-dev-server": "^2.9.5",
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
