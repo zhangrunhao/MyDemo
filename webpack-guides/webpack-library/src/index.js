@@ -1,30 +1,14 @@
-var _ = require('lodash')
-var numRef = require('./ref.json')
+import _ from 'lodash';
+import numRef from './ref.json';
 
-exports.numToWord = function(num) {
+export function numToWord(num) {
   return _.reduce(numRef, (accum, ref) => {
-    return ref.num === num ? ref.word : accum
-  }, '')
-}
+    return ref.num === num ? ref.word : accum;
+  }, '');
+};
 
-exports.wordToNum =  function (word) {
+export function wordToNum(word) {
   return _.reduce(numRef, (accum, ref) => {
-    return ref.word === word && word.toLowerCase() ? ref.num : accum
-  }, -1)
-}
-
-
-// import _ from 'lodash';
-// import numRef from './ref.json';
-
-// export function numToWord(num) {
-//   return _.reduce(numRef, (accum, ref) => {
-//     return ref.num === num ? ref.word : accum;
-//   }, '');
-// };
-
-// export function wordToNum(word) {
-//   return _.reduce(numRef, (accum, ref) => {
-//     return ref.word === word && word.toLowerCase() ? ref.num : accum;
-//   }, -1);
-// };
+    return ref.word === word && word.toLowerCase() ? ref.num : accum;
+  }, -1);
+};
