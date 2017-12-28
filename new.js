@@ -36074,7 +36074,7 @@
     }
   }
 }, function (e, t) {
-  e.exports = '<div class="app" ref="app">\n  <my-header v-if="headerShow"></my-header>\n  <my-tab @toggleTab="toggleTab"></my-tab>\n  <my-content :data="contentData"></my-content>\n</div>'
+  e.exports = '<div class="app" ref="app">\n  <my-header v-if="headerShow"></my-header>\n  \x3c!-- <my-tab @toggleTab="toggleTab"></my-tab> --\x3e\n  <my-content :data="contentData"></my-content>\n</div>'
 }, function (e, t) {}, function (e, t) {}, function (e, t, n) {
   "use strict";
 
