@@ -1,14 +1,30 @@
+var color = ""
 
-var person = {
-  name : 'zhangrh'
-}
-var obj = person
+// var color = "blue"
 
-obj = new Object
+// function change() {
+//   if (color === "blue") {
+//     color = "red"
+//   } else {
+//     color === "blue"
+//   }
+// }
 
-obj.name = "new"
+// change()
+// console.log(color)
 
-console.log(person.name)
+
+
+// var person = {
+//   name : 'zhangrh'
+// }
+// var obj = person
+
+// obj = new Object
+
+// obj.name = "new"
+
+// console.log(person.name)
 
 
 
