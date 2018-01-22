@@ -1,0 +1,41 @@
+var test = new Date(2012, 3, 4)
+
+
+console.log(test.toString()) // Wed Apr 04 2012 00:00:00 GMT+0800 (CST)
+console.log(test.toLocaleString()) // 2012-4-4 00:00:00
+// var arr = [2, 1, 10, 3, 5, 4]
+
+// var newArr = arr.slice()
+// console.log(newArr)
+// newArr.push('111')
+// console.log(arr)
+// function compare(value1, value2) {
+//   if (value1 < value2) {
+//     return -1
+//   } else if (value1 > value2) {
+//     return 1
+//   } else {
+//     return 0
+//   }
+// }
+// arr.sort(compare)
+// console.log(arr)
+
+
+// console.log(arr)
+// arr.sort()
+// console.log(arr)
+// console.log(typeof arr[0])
+
+
+// var arr = new Array(3)
+// console.log(arr) // [ <3 empty items> ]
+
+// var arr = new Array(3, 'a')
+// console.log(arr) // [ 3, 'a' ]
+
+// console.log(Array.isArray(arr.valueOf()))
+
+// console.log(arr.toLocaleString())
+
+// console.log(arr.join(' '))
