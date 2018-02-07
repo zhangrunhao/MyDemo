@@ -1,8 +1,40 @@
-var test = new Date(2012, 3, 4)
+var pattern = new RegExp("\\[bc\\]at", 'gi')
+var res = pattern.toLocaleString()
+console.log(res)
+
+// var text = "000-000-00000"
+// var pattern = /\d{3}-\d{2}-\d{4}/
+// console.log(pattern.exec(text))
+// console.log(pattern.valueOf())
 
 
-console.log(test.toString()) // Wed Apr 04 2012 00:00:00 GMT+0800 (CST)
-console.log(test.toLocaleString()) // 2012-4-4 00:00:00
+// var text = "mom and dad and baby"
+// var pattern = /mom( and dad (and baby)?)?/gi
+// var matches = pattern.exec(text)
+// console.log(matches.index) // 0
+// console.log(matches.input) // 
+// console.log(matches.length)
+
+// var re = null
+// var i
+
+// 字面量方式
+// for (i =0 ; i < 10; i++) {
+//   re = /cat/g
+//   console.log(re.test("catastrophe"))
+// }
+// for (i=0;i<10;i++) {
+//   re = new RegExp('cat', 'g')
+//   console.log(re.test("catastrophe"))
+// }
+
+
+
+// var test = new Date(2012, 3, 4)
+
+
+// console.log(test.toString()) // Wed Apr 04 2012 00:00:00 GMT+0800 (CST)
+// console.log(test.toLocaleString()) // 2012-4-4 00:00:00
 // var arr = [2, 1, 10, 3, 5, 4]
 
 // var newArr = arr.slice()
