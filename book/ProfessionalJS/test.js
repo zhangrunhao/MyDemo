@@ -1,15 +1,15 @@
 
 
-function add (num1) {
-  "use strict"
-  console.log(arguments.length)
-  console.log(arguments)
-  arguments[1] = 10
-  console.log(arguments)
-  console.log(arguments[0] + arguments[1])
-}
+// function add (num1) {
+//   "use strict"
+//   console.log(arguments.length)
+//   console.log(arguments)
+//   arguments[1] = 10
+//   console.log(arguments)
+//   console.log(arguments[0] + arguments[1])
+// }
 
-add(10, 20)
+// add(10, 20)
 
 
 // var num = 0

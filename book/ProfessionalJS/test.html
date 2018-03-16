@@ -15,24 +15,49 @@
 </body>
   <script>
   
-  // var formDom = document.getElementById('formDom')
+function outer() {
+  inner()
+}
+
+function inner() {
+  console.log(inner.caller)
+}
+
+outer()
+
+//   window.color = "red"
+// var o = {
+//   color: 'blue'
+// }
+
+// function sayColor() {
+//   console.log(this.color)
+// }
+
+// sayColor()
+
+// o.sayColor = sayColor
+// o.sayColor()
+
+// sayColor() 
+// var formDom = document.getElementById('formDom')
   // var formInput = document.getElementById('formInput')
   // formInput.value = JSON.stringify(data)
   // formDom.submit()
-  var data = [[1], [2]]
+  // var data = [[1], [2]]
 
-  var tempForm = document.createElement('form')
-  tempForm.action = "http://cms.in.xintiaotime.com/hook/report/print"
-  tempForm.method = "post"
+  // var tempForm = document.createElement('form')
+  // tempForm.action = "http://cms.in.xintiaotime.com/hook/report/print"
+  // tempForm.method = "post"
 
-  var inputDom = document.createElement('input')
-  inputDom.name = "data"
-  inputDom.value = JSON.stringify(data)
+  // var inputDom = document.createElement('input')
+  // inputDom.name = "data"
+  // inputDom.value = JSON.stringify(data)
   
-  tempForm.appendChild(inputDom)
-  document.body.appendChild(tempForm)
+  // tempForm.appendChild(inputDom)
+  // document.body.appendChild(tempForm)
 
-  tempForm.submit()
+  // tempForm.submit()
 
   </script>
 </html>

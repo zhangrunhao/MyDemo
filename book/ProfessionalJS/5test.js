@@ -1,6 +1,18 @@
-var pattern = new RegExp("\\[bc\\]at", 'gi')
-var res = pattern.toLocaleString()
-console.log(res)
+window.color = "red"
+var o = {
+  color: 'blue'
+}
+
+function sayColor() {
+  console.log(this.color)
+}
+
+o.sayColor = sayColor
+o.sayColor()
+
+// var pattern = new RegExp("\\[bc\\]at", 'gi')
+// var res = pattern.toLocaleString()
+// console.log(res)
 
 // var text = "000-000-00000"
 // var pattern = /\d{3}-\d{2}-\d{4}/
