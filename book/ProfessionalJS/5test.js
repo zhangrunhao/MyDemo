@@ -1,14 +1,23 @@
-window.color = "red"
-var o = {
-  color: 'blue'
-}
+var s1 = 'abcd'
 
-function sayColor() {
-  console.log(this.color)
-}
+var res = s1.charAt(6)
+console.log(res)
 
-o.sayColor = sayColor
-o.sayColor()
+// var objs1 = String(s1)
+// objs1.color = 'red'
+// console.log(objs1.color)
+
+// window.color = "red"
+// var o = {
+//   color: 'blue'
+// }
+
+// function sayColor() {
+//   console.log(this.color)
+// }
+
+// o.sayColor = sayColor
+// o.sayColor()
 
 // var pattern = new RegExp("\\[bc\\]at", 'gi')
 // var res = pattern.toLocaleString()
