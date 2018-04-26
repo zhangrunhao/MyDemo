@@ -1,7 +1,18 @@
-var s1 = 'abcd'
-
-var res = s1.charAt(6)
+var str = 'aab'
+var res = str.localeCompare('aaa')
 console.log(res)
+
+// var text = 'cat, bat, sat, fat'
+// var pattern = /.at/
+// var matches = text.match(pattern)
+// console.log(matches)
+
+
+
+// var s1 = 'abcd'
+
+// var res = s1.charAt(6)
+// console.log(res)
 
 // var objs1 = String(s1)
 // objs1.color = 'red'
