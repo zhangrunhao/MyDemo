@@ -1,5 +1,17 @@
 
-
+var obj = {
+  aaa: 'aaa',
+  bbb: 'bbb'
+}
+function json2Form(json) {  
+  var str = [];  
+  for(var p in json){  
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(json[p]));  
+  }  
+  return str.join("&");  
+}
+var res = json2Form(obj)
+console.log(res)
 // function add (num1) {
 //   "use strict"
 //   console.log(arguments.length)
