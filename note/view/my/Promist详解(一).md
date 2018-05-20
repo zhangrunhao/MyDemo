@@ -15,5 +15,21 @@
 ### 从头实现Promise
 
 我们都知道Promise是一个构造函数, 需要new调用.并有以下几个api:
+
 ```js
+function Promise (resolver) {
+}
+Promise.prototype.then = function() {}
+Promise.prototype.catch = function() {}
+
+Promise.reslove = function () {}
+Promise.reject = function () {}
+Promise.all = function () {}
+Promise.race = functon () {}
+```
+
+开始构建
+
+```js
+
 ```
