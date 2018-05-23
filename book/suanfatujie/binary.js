@@ -4,7 +4,8 @@ function binary_search(list, item) {
   while (low <= high) {
     var mid = Math.floor((low + high) / 2)
     var guess = list[mid]
-    if (guess === item) {
+    if (guess === item)
+     {
       return mid
     } else if (guess < item) {
       low = mid + 1
