@@ -1,29 +1,70 @@
+// var graph = {
+//   start: {
+//     a: 6,
+//     b: 2
+//   },
+//   a: {
+//     fin: 1
+//   },
+//   b: {
+//     a: 3,
+//     fin: 5
+//   },
+//   fin: {}
+// }
+
+// var costs = {
+//   a: 6,
+//   b: 2,
+//   fin: Infinity
+// }
+
+// var parents = {
+//   a: 'start',
+//   b: 'start',
+//   fin: null
+// }
+
 var graph = {
   start: {
-    a: 6,
-    b: 2
+    a: 2,
+    d: 5
   },
   a: {
-    fin: 1
+    b: 7,
+    d: 8
   },
   b: {
-    a: 3,
-    fin: 5
+    end: 1
   },
-  fin: {}
+  c: {
+    b: 6,
+    end: 3
+  },
+  d: {
+    c: 4,
+    b: 2
+  },
+  end: {}
 }
 
 var costs = {
-  a: 6,
-  b: 2,
-  fin: Infinity
+  a: 2,
+  b: Infinity,
+  c: Infinity,
+  d: 5,
+  end: Infinity
 }
 
 var parents = {
   a: 'start',
-  b: 'start',
-  fin: null
+  b: null,
+  c: null,
+  d: 'start',
+  end: null
 }
+
+
 
 var processed = []
 
