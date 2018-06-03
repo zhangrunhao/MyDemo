@@ -64,36 +64,69 @@
 //   end: null
 // }
 
-var graph = {
-  start: {
-    a: 10
-  },
-  a: {
-    c: 20
-  },
-  b: {
-    a: 1
-  },
-  c: {
-    end: 30,
-    b: 1
-  },
-  end: {}
-}
+// var graph = {
+//   start: {
+//     a: 10
+//   },
+//   a: {
+//     c: 20
+//   },
+//   b: {
+//     a: 1
+//   },
+//   c: {
+//     end: 30,
+//     b: 1
+//   },
+//   end: {}
+// }
 
-var costs = {
-  a: 10,
-  b: Infinity,
-  c: Infinity,
-  end: Infinity
-}
+// var costs = {
+//   a: 10,
+//   b: Infinity,
+//   c: Infinity,
+//   end: Infinity
+// }
 
-var parents = {
-  a: 'start',
-  b: null,
-  c: null,
-  end: null
-}
+// var parents = {
+//   a: 'start',
+//   b: null,
+//   c: null,
+//   end: null
+// }
+
+// var graph = {
+//   start: {
+//     a: 2,
+//     b: 2
+//   },
+//   a: {
+//     b: 2
+//   },
+//   b: {
+//     c: 2,
+//     end: 2
+//   },
+//   c: {
+//     end: 2,
+//     a: -1
+//   },
+//   end: {}
+// }
+
+// var costs = {
+//   a: 2,
+//   b: 2,
+//   c: Infinity,
+//   end: Infinity
+// }
+
+// var parents = {
+//   a: 'start',
+//   b: 'start',
+//   c: null,
+//   end: null
+// }
 
 var processed = []
 
