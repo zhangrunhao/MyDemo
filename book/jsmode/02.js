@@ -30,11 +30,12 @@ var mult = (function () {
     for (var i = 0, l = arguments.length; i < l; i++) {
       a = a * arguments[i]
     }
+    return a
   }
 
   return function () {
     var args = Array.prototype.join.call(arguments, ',')
-    if (caches[args]) {
+    if (args in caches) {
       return cache[args]
     }
     return caches[args] = calculate.apply(null, arguments)
