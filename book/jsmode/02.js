@@ -24,16 +24,20 @@
 
 var mult = (function () {
   var caches = {}
+
+  var calculate = function () { // 封装一个计算函数
+    var a = 1
+    for (var i = 0, l = arguments.length; i < l; i++) {
+      a = a * arguments[i]
+    }
+  }
+
   return function () {
     var args = Array.prototype.join.call(arguments, ',')
     if (caches[args]) {
       return cache[args]
     }
-    var a = 1
-    for (var i = 0, l = arguments.length; i < l; i++) {
-      a = a * arguments[i]
-    }
-    return caches[args] = a
+    return caches[args] = calculate.apply(null, arguments)
   }
 })()
 
