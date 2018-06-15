@@ -1,5 +1,7 @@
 # 数组Reduce的应用
 
+> [参考](https://segmentfault.com/a/1190000010731933)
+
 ## 简单应用
 
 ```js
