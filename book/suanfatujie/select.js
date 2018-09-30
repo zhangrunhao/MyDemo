@@ -15,7 +15,7 @@ function selectsSort(arr) {
   var len = arr.length
   for (var i = 0; i < len; i++) {
     var smallestIndex = selectSmallestIndex(arr)
-    var temp = newArr.push(arr[smallestIndex])
+    newArr.push(arr[smallestIndex])
     arr.splice(smallestIndex, 1)
   }
   return newArr
@@ -24,3 +24,4 @@ function selectsSort(arr) {
 var arr = [2, 4, 6, 1, 3, 4, 6, 2, 7]
 var res = selectsSort(arr)
 console.log(res)
+debugger;
