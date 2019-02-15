@@ -1,13 +1,15 @@
-## 问题总结 HTML(二) 关于textarea的问题.
+# 问题总结 HTML(二) 关于textarea的问题
 
 ## input和textarea的区别
 
 ### `<input type="text">`标签
+
 * text标签是单行文本框, 不会换行
 * 可以确定其他的属性,例如`email`, 在移动端弹出键盘的时候, 会有很大的不同.
 * 通过size属性执行显示字符的长度, **注意: 当使用css限定了宽高, 那么size属性就不起作用了.**
 * `value`属性指定初始值, `Maxlength`属性指定文本框可以输入的最长长度.
 * 可以通过width和height设置宽高, 但是不会增加行数.
+
 ```html
 <input type="text" style="width: 200px;height: 100px" value="我是设置过宽高的text">
 ```

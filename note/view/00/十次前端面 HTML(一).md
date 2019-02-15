@@ -1,11 +1,13 @@
-## 问题总结 HTML(一) HTML5新增了哪些内容或API, 使用过哪些?
+# 问题总结 HTML(一) HTML5新增了哪些内容或API, 使用过哪些?
 
 ## 新CSS的选择器
 
 ### document.querySelector("selector")
+
 * 根据css选择器返回**第一个**匹配的元素, 如果没有匹配返回null
 * querySelector也支持多个选择器
 * querySelector非常方便, 类似jQuery选择器, 可以在移动端使用
+
 ```html
 <body>
   <ul class="header">
