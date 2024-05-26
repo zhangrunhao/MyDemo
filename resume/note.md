@@ -1,18 +1,17 @@
-# 简历-前端-张润昊
+# 简历-前端-Hulk
 
 ## 个人信息
 
 ### 联系方式
 
-* 手机/微信 13522720901
+* Phone: 13522720901
 * Email: [zhangrhweb@gmail.com](zhangrhweb@gmail.com)
 
 ### 基本信息
 
 * 张润昊 / 男 / 1993
-* 本科 / 西北民族大学 / 软件工程
+* 本科 / 软件工程
 * 工作年限: 七年
-* 博客: [http://www.cnblogs.com/zhangrunhao/](http://www.cnblogs.com/zhangrunhao/)
 * Github: [https://github.com/zhangrunhao](https://github.com/zhangrunhao)
 * 期望职位: 前端开发 / 北京
 
